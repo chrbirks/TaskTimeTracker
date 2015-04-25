@@ -1,8 +1,12 @@
 package com.ttt.view;
 
+import java.io.File;
+
 import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 
 import com.ttt.TaskTimeTracker;
+import com.ttt.task.TaskManager;
 
 public class RootLayoutController {
 
@@ -13,8 +17,8 @@ public class RootLayoutController {
 	 * 
 	 */
 
-	// Reference to the main application
-//	private TaskTimeTracker taskTimeTracker;
+	// Reference to the main application and TaskManager
+	private TaskTimeTracker taskTimeTracker;
 	private TaskManager taskManager;
 
 	/**
@@ -25,18 +29,28 @@ public class RootLayoutController {
 	public void setTaskTimeTracker(TaskTimeTracker taskTimeTracker) {
 		this.taskTimeTracker = taskTimeTracker;
 	}
-
+	
 	/**
-	 * Creates an empty address book.
+	 * Is called by the main application to give a reference back to
+	 * TaskManager.
+	 * 
+	 * @param taskManager
 	 */
-	@FXML
-	private void handleNew() {
-		taskTimeTracker.getTaskData().clear();
-		taskTimeTracker.setPersonFilePath(null);
+	public void setTaskManager(TaskManager taskManager) {
+		this.taskManager = taskManager;
 	}
 
+//	/**
+//	 * Creates an empty address book.
+//	 */
+//	@FXML
+//	private void handleNew() {
+//		taskTimeTracker.getTaskData().clear();
+//		taskTimeTracker.setPersonFilePath(null);
+//	}
+
 	/**
-	 * Opens a FileChooser to let the user select an address book to load.
+	 * Opens a FileChooser to let the user select a task file to load.
 	 */
 	@FXML
 	private void handleOpen() {
@@ -48,22 +62,22 @@ public class RootLayoutController {
 		fileChooser.getExtensionFilters().add(extFilter);
 
 		// Show save file dialog
-		File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+		File file = fileChooser.showOpenDialog(taskTimeTracker.getPrimaryStage());
 
 		if (file != null) {
-			mainApp.loadPersonDataFromFile(file);
+			taskManager.loadTaskDataFromFile(file);
 		}
 	}
 
 	/**
-	 * Saves the file to the person file that is currently open. If there is no
+	 * Saves the file to the task file that is currently open. If there is no
 	 * open file, the "save as" dialog is shown.
 	 */
 	@FXML
 	private void handleSave() {
-		File personFile = mainApp.getPersonFilePath();
-		if (personFile != null) {
-			mainApp.savePersonDataToFile(personFile);
+		File taskFile = taskManager.getTaskFilePath();
+		if (taskFile != null) {
+			taskManager.saveTaskDataToFile(taskFile);
 		} else {
 			handleSaveAs();
 		}
@@ -82,14 +96,14 @@ public class RootLayoutController {
 		fileChooser.getExtensionFilters().add(extFilter);
 
 		// Show save file dialog
-		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+		File file = fileChooser.showSaveDialog(taskTimeTracker.getPrimaryStage());
 
 		if (file != null) {
 			// Make sure it has the correct extension
 			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
-			mainApp.savePersonDataToFile(file);
+			taskManager.saveTaskDataToFile(file);
 		}
 	}
 

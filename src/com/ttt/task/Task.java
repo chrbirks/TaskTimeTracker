@@ -5,6 +5,10 @@ package com.ttt.task;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.ttt.aux.LocalDateTimeAdapter;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -28,6 +32,16 @@ public class Task {
 	private LongProperty elapsedMinutes;
 	private DoubleProperty elapsedHours;
 	
+	// JABX unmarshaller needs default constructor?
+	@SuppressWarnings("unused")
+	private Task() {
+		this.taskNumber = new SimpleIntegerProperty(999);
+		this.taskName = new SimpleStringProperty("x");
+		this.time = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.now());
+		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
+		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
+	}
+	
 	public Task(int taskNumber, String taskName, LocalDateTime time) {
 		this.taskNumber = new SimpleIntegerProperty(taskNumber);
 		this.taskName = new SimpleStringProperty(taskName);
@@ -35,12 +49,6 @@ public class Task {
 		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
 		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
 	}
-	
-//	public Task(SimpleIntegerProperty taskNumber, SimpleStringProperty taskName, SimpleObjectProperty<LocalDateTime> time) {
-//		this.taskNumber = taskNumber;
-//		this.taskName = taskName;
-//		this.time = time;
-//	}
 	
 	public void setTaskNumber(int number) {
 		this.taskNumber.set(number);
@@ -70,6 +78,7 @@ public class Task {
 		time = new SimpleObjectProperty<LocalDateTime>(this, "time", newTime);
 	}
 	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	public LocalDateTime getTaskTime() {
 		return time.get();
 	}

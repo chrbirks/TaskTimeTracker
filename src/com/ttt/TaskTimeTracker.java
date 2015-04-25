@@ -2,11 +2,9 @@ package com.ttt;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
-import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +17,7 @@ import javafx.stage.Stage;
 import com.ttt.task.Task;
 import com.ttt.task.TaskManager;
 import com.ttt.view.AddTaskDialogController;
+import com.ttt.view.RootLayoutController;
 import com.ttt.view.TaskEditDialogController;
 import com.ttt.view.TaskOverviewController;
 import com.ttt.view.TimeEditDialogController;
@@ -34,16 +33,14 @@ public class TaskTimeTracker extends Application {
 
 	// ExecutorService
 	private static final int N_THREADS_CORE_POOL = 1;
-//	private static ScheduledExecutorService scheduler = Executors
-//			.newScheduledThreadPool(N_THREADS_CORE_POOL);
 	private static ScheduledExecutorService scheduler = Executors
-			.newScheduledThreadPool(N_THREADS_CORE_POOL, new ThreadFactory(){
-			      @Override
-			      public Thread newThread(Runnable r){
-			    	  return new Thread(r, "TimeKeeperScheduler");
-				  }
+			.newScheduledThreadPool(N_THREADS_CORE_POOL, new ThreadFactory() {
+				@Override
+				public Thread newThread(Runnable r) {
+					return new Thread(r, "TimeKeeperScheduler");
+				}
 			});
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -66,7 +63,7 @@ public class TaskTimeTracker extends Application {
 	}
 
 	/**
-	 * Initializes the root layout.
+	 * Initializes the root layout and tries to load the last opened task file.
 	 */
 	public void initRootLayout() {
 		try {
@@ -79,9 +76,21 @@ public class TaskTimeTracker extends Application {
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			RootLayoutController controller = loader.getController();
+			controller.setTaskTimeTracker(this);
+			controller.setTaskManager(taskManager);
+
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		// Try to load last opened person file.
+		File file = taskManager.getTaskFilePath();
+		if (file != null && file.exists() && !file.isDirectory()) {
+			taskManager.loadTaskDataFromFile(file);
 		}
 	}
 
@@ -227,17 +236,18 @@ public class TaskTimeTracker extends Application {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * @param args are not used
+	 * @param args
+	 *            are not used
 	 */
 	public static void main(String[] args) {
 
-		TaskManager taskManager = TaskManager.getInstance();
-		taskManager.addTask(123, "Jira", LocalDateTime.now());
-		taskManager.addTask(456, "Confluence", LocalDateTime.now());
-		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
-		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
+//		TaskManager taskManager = TaskManager.getInstance();
+//		taskManager.addTask(123, "Jira", LocalDateTime.now());
+//		taskManager.addTask(456, "Confluence", LocalDateTime.now());
+//		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
+//		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
 
 		launch(args);
 	}

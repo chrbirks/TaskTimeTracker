@@ -203,6 +203,7 @@ public class TaskManager {
 //
 //	        alert.showAndWait();
 	    	System.out.println("ERROR: could not load data from file: " + file.getPath());
+	    	e.printStackTrace();
 	    }
 	}
 	
@@ -235,6 +236,7 @@ public class TaskManager {
 //
 //	        alert.showAndWait();
 	    	System.out.println("ERROR: could not save data to file: " + file.getPath());
+	    	e.printStackTrace();
 	    }
 	}
 	
