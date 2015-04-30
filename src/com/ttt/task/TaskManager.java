@@ -90,6 +90,16 @@ public class TaskManager {
 		return false;
 	}
 	
+	public void resetAllTimes() {
+		System.out.println("Resetting times");
+		Iterator<Task> i = taskSet.iterator();
+		while (i.hasNext()) {
+			Task task = i.next();
+			task.setElapsedHours(0);
+			task.setElapsedMinutes(0);
+		}
+	}
+	
 	public boolean editTime(int taskNumber, String taskName, long minutes) {
 		Task refTask = new Task(taskNumber, taskName, LocalDateTime.now());
 		System.out.println("Editing task: " + refTask);

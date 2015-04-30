@@ -196,6 +196,15 @@ public class TaskOverviewController {
 	private void handleStopTimer() {
 		taskTable.getSelectionModel().clearSelection();
 	}
+	
+	/**
+	 * Handle reset all times button
+	 */
+	@FXML
+	private void handleResetTimes() {
+		taskTable.getSelectionModel().clearSelection();
+		taskManager.resetAllTimes();
+	}
 
 	/**
 	 * Handle delete button
