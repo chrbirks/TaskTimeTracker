@@ -1,4 +1,4 @@
-package com.ttt.task;
+package main.java.ttt.task;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -9,12 +9,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import main.java.ttt.TaskTimeTracker;
+import main.java.ttt.aux.DoubleRound;
+import main.java.ttt.model.TaskSetWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import com.ttt.TaskTimeTracker;
-import com.ttt.aux.DoubleRound;
-import com.ttt.model.TaskSetWrapper;
 
 public class TaskManager {
 

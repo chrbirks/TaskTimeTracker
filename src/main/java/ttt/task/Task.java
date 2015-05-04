@@ -1,14 +1,13 @@
 /**
  * 
  */
-package com.ttt.task;
+package main.java.ttt.task;
 
 import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.ttt.aux.LocalDateTimeAdapter;
-
+import main.java.ttt.aux.LocalDateTimeAdapter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;

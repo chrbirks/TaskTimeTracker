@@ -1,18 +1,17 @@
-package com.ttt.view;
+package main.java.ttt.view;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
+import main.java.ttt.TaskTimeTracker;
+import main.java.ttt.task.Task;
+import main.java.ttt.task.TaskManager;
+import main.java.ttt.task.TimeKeeper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import com.ttt.TaskTimeTracker;
-import com.ttt.task.Task;
-import com.ttt.task.TaskManager;
-import com.ttt.task.TimeKeeper;
 
 public class TaskOverviewController {
 

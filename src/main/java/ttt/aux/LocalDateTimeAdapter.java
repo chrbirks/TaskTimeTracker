@@ -1,4 +1,4 @@
-package com.ttt.aux;
+package main.java.ttt.aux;
 
 import java.time.LocalDateTime;
 

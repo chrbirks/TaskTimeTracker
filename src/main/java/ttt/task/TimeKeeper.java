@@ -1,11 +1,11 @@
-package com.ttt.task;
+package main.java.ttt.task;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import com.ttt.aux.DoubleRound;
-import com.ttt.task.Task;
-import com.ttt.view.TaskOverviewController;
+import main.java.ttt.aux.DoubleRound;
+import main.java.ttt.task.Task;
+import main.java.ttt.view.TaskOverviewController;
 
 public final class TimeKeeper implements Runnable {
 	

@@ -1,4 +1,4 @@
-package com.ttt.aux;
+package main.java.ttt.aux;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

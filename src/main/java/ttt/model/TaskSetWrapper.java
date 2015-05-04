@@ -1,11 +1,11 @@
-package com.ttt.model;
+package main.java.ttt.model;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.ttt.task.Task;
+import main.java.ttt.task.Task;
 
 /**
  * Helper class to wrap a list of persons. This is used for saving the

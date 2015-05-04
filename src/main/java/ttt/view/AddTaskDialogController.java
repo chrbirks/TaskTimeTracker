@@ -1,12 +1,11 @@
-package com.ttt.view;
+package main.java.ttt.view;
 
 import java.time.LocalDateTime;
 
+import main.java.ttt.task.TaskManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import com.ttt.task.TaskManager;
 
 public class AddTaskDialogController {
 	@FXML

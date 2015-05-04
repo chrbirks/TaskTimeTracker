@@ -1,12 +1,11 @@
-package com.ttt.view;
+package main.java.ttt.view;
 
 import java.io.File;
 
+import main.java.ttt.TaskTimeTracker;
+import main.java.ttt.task.TaskManager;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
-
-import com.ttt.TaskTimeTracker;
-import com.ttt.task.TaskManager;
 
 public class RootLayoutController {
 
