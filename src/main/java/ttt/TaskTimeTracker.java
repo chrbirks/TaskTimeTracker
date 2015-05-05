@@ -302,9 +302,9 @@ public class TaskTimeTracker extends Application {
 		
 		///////////////////////////////////////////
 		
-//		BasicCredentials creds = new BasicCredentials("admin", "");
+		BasicCredentials creds = new BasicCredentials("admin", "xxx");
 //        JiraClient jira = new JiraClient("https://ctest1.atlassian.net", creds);
-//		
+		
 //        try {
 //            /* Retrieve issue TEST-123 from JIRA. We'll get an exception if this fails. */
 //            Issue issue = jira.getIssue("TEST-123");
