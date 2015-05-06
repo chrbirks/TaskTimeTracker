@@ -31,12 +31,12 @@ import javafx.stage.Stage;
 //import com.atlassian.jira.rest.client.domain.Transition;
 //import com.sun.jersey.*;
 
-import net.rcarz.jiraclient.BasicCredentials;
-import net.rcarz.jiraclient.CustomFieldOption;
-import net.rcarz.jiraclient.Field;
-import net.rcarz.jiraclient.Issue;
-import net.rcarz.jiraclient.JiraClient;
-import net.rcarz.jiraclient.JiraException;
+//import net.rcarz.jiraclient.BasicCredentials;
+//import net.rcarz.jiraclient.CustomFieldOption;
+//import net.rcarz.jiraclient.Field;
+//import net.rcarz.jiraclient.Issue;
+//import net.rcarz.jiraclient.JiraClient;
+//import net.rcarz.jiraclient.JiraException;
 
 
 public class TaskTimeTracker extends Application {
@@ -302,7 +302,7 @@ public class TaskTimeTracker extends Application {
 		
 		///////////////////////////////////////////
 		
-		BasicCredentials creds = new BasicCredentials("admin", "xxx");
+//		BasicCredentials creds = new BasicCredentials("admin", "xxx");
 //        JiraClient jira = new JiraClient("https://ctest1.atlassian.net", creds);
 		
 //        try {
