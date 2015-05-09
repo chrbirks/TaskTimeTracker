@@ -46,14 +46,13 @@
     </dependency>
     
     <!-- Jira dependencies -->
-    <dependency>
+    <!--<dependency>
       <groupId>net.rcarz</groupId>
       <artifactId>jira-client</artifactId>
       <version>0.6-SNAPSHOT</version>
-      <!--<scope>compile</scope>-->
       <scope>system</scope>
       <systemPath>/home/chrbirks/Dropbox/Projekter/TaskTimeTracker/sources/jira-client-0.6-SNAPSHOT.jar</systemPath>
-    </dependency>
+    </dependency>-->
     
     <dependency>
       <groupId>com.atlassian.jira</groupId>
