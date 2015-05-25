@@ -197,6 +197,14 @@ public class TaskOverviewController {
 	}
 	
 	/**
+	 * Handle statistics button
+	 */
+	@FXML
+	private void handleStatistics() {
+		taskTimeTracker.showStatistics();
+	}
+	
+	/**
 	 * Handle reset all times button
 	 */
 	@FXML

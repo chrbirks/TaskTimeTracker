@@ -3,6 +3,7 @@ package main.java.ttt.task;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -211,7 +212,7 @@ public class TaskManager {
 //	        alert.setContentText("Could not load data from file:\n" + file.getPath());
 //
 //	        alert.showAndWait();
-	    	System.out.println("ERROR: could not load data from file: " + file.getPath());
+	    	System.err.println("ERROR: could not load data from file: " + file.getPath());
 	    	e.printStackTrace();
 	    }
 	}
@@ -247,6 +248,35 @@ public class TaskManager {
 	    	System.out.println("ERROR: could not save data to file: " + file.getPath());
 	    	e.printStackTrace();
 	    }
+	}
+	
+	/**
+	 * Get task data from the specified file. Will be returned as list
+	 * 
+	 * @param file
+	 */
+	public List<Task> getTaskDataFromFile(File file) {
+		TaskSetWrapper wrapper = null;
+		
+	    try {
+	        JAXBContext context = JAXBContext
+	                .newInstance(TaskSetWrapper.class);
+	        Unmarshaller um = context.createUnmarshaller();
+
+	        // Reading XML from the file and unmarshalling.
+	        wrapper = (TaskSetWrapper) um.unmarshal(file);
+	        
+	    } catch (Exception e) { // catches ANY exception
+//	        Alert alert = new Alert(AlertType.ERROR);
+//	        alert.setTitle("Error");
+//	        alert.setHeaderText("Could not load data");
+//	        alert.setContentText("Could not load data from file:\n" + file.getPath());
+//
+//	        alert.showAndWait();
+	    	System.err.println("ERROR: could not load data from file: " + file.getPath());
+	    	e.printStackTrace();
+	    }
+	    return wrapper.getTasks();
 	}
 	
 }

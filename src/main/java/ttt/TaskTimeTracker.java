@@ -1,15 +1,20 @@
 package main.java.ttt;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
+import main.java.ttt.task.Constants;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import main.java.ttt.view.AddTaskDialogController;
 import main.java.ttt.view.RootLayoutController;
+import main.java.ttt.view.StatisticsController;
 import main.java.ttt.view.TaskEditDialogController;
 import main.java.ttt.view.TaskOverviewController;
 import main.java.ttt.view.TimeEditDialogController;
@@ -46,19 +51,20 @@ public class TaskTimeTracker extends Application {
 	private TaskOverviewController taskOverviewController;
 
 	// Locations for Eclipse
-//	private static final String ROOT_LAYOUT_LOCATION = "/main/resources/ttt/view/RootLayout.fxml";
-//	private static final String TASK_OVERVIEW_LOCATION = "/main/resources/ttt/view/TaskOverview.fxml";
-//	private static final String ADDTASKDIALOG_LOCATION = "/main/resources/ttt/view/AddTaskDialog.fxml";
-//	private static final String EDITTASKDIALOG_LOCATION = "/main/resources/ttt/view/TaskEditDialog.fxml";
-//	private static final String TIMEEDITDIALOG_LOCATION = "/main/resources/ttt/view/TimeEditDialog.fxml";
+	private static final String ROOT_LAYOUT_LOCATION = "/main/resources/ttt/view/RootLayout.fxml";
+	private static final String TASK_OVERVIEW_LOCATION = "/main/resources/ttt/view/TaskOverview.fxml";
+	private static final String ADDTASKDIALOG_LOCATION = "/main/resources/ttt/view/AddTaskDialog.fxml";
+	private static final String EDITTASKDIALOG_LOCATION = "/main/resources/ttt/view/TaskEditDialog.fxml";
+	private static final String TIMEEDITDIALOG_LOCATION = "/main/resources/ttt/view/TimeEditDialog.fxml";
+	private static final String STATISTICS_LOCATION = "/main/resources/ttt/view/Statistics.fxml";
 	
 	// Locations for Maven jar
-	private static final String ROOT_LAYOUT_LOCATION = "/ttt/view/RootLayout.fxml";
-	private static final String TASK_OVERVIEW_LOCATION = "/ttt/view/TaskOverview.fxml";
-	private static final String ADDTASKDIALOG_LOCATION = "/ttt/view/AddTaskDialog.fxml";
-	private static final String EDITTASKDIALOG_LOCATION = "/ttt/view/TaskEditDialog.fxml";
-	private static final String TIMEEDITDIALOG_LOCATION = "/ttt/view/TimeEditDialog.fxml";
-    
+//	private static final String ROOT_LAYOUT_LOCATION = "/ttt/view/RootLayout.fxml";
+//	private static final String TASK_OVERVIEW_LOCATION = "/ttt/view/TaskOverview.fxml";
+//	private static final String ADDTASKDIALOG_LOCATION = "/ttt/view/AddTaskDialog.fxml";
+//	private static final String EDITTASKDIALOG_LOCATION = "/ttt/view/TaskEditDialog.fxml";
+//	private static final String TIMEEDITDIALOG_LOCATION = "/ttt/view/TimeEditDialog.fxml";
+//	private static final String STATISTICS_LOCATION = "/ttt/view/Statistics.fxml";
 	
     // ExecutorService
 	private static final int N_THREADS_CORE_POOL = 1;
@@ -264,6 +270,87 @@ public class TaskTimeTracker extends Application {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	
+	public void showStatistics() {
+		try {
+	        // Load the fxml file and create a new stage for the popup.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(TaskTimeTracker.class
+	        		.getResource(STATISTICS_LOCATION));
+	        AnchorPane page = (AnchorPane) loader.load();
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Statistics");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the tasks into the controller.
+	        StatisticsController controller = loader.getController();
+	        controller.setTaskData(taskManager.getTaskSet());
+
+	        dialogStage.show();
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void showAllStatistics() {
+		try {
+	        // Load the fxml file and create a new stage for the popup.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(TaskTimeTracker.class
+	        		.getResource(STATISTICS_LOCATION));
+	        AnchorPane page = (AnchorPane) loader.load();
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("All Statistics");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the tasks into the controller.
+	        StatisticsController controller = loader.getController();
+	        List<Task> currentTaskSet = taskManager.getTaskSet();
+	        List<Task> taskSet = new ArrayList<Task>();
+	        taskSet.addAll(currentTaskSet);
+	        
+	        List<File> fileList = getLogFiles();
+	        for (File file : fileList) {
+	        	taskSet.addAll(taskManager.getTaskDataFromFile(file));
+	        }
+//	        List<Task> taskSet = taskManager.getTaskSet();
+//	        taskSet.addAll(taskManager.getTaskSet());
+//	        List<Task> taskSet = taskManager.get
+	        
+	        
+	        controller.setTaskData(taskSet);
+
+	        dialogStage.show();
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	private List<File> getLogFiles() {
+		List<File> fileList = new ArrayList<File>();
+		File directory = new File(Constants.LOG_FILE_DIR);
+		
+		// Get all the files from the directory
+		File[] allFiles = directory.listFiles(new FilenameFilter() {
+			public boolean accept(File directory, String name) {
+				return name.toLowerCase().endsWith(Constants.LOG_FILE_TYPE);
+			}
+		});
+		for (File file : allFiles) {
+			if (file.isFile())
+				fileList.add(file);
+		}
+		return fileList;
 	}
 
 	/**

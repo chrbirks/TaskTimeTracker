@@ -106,6 +106,21 @@ public class RootLayoutController {
 		}
 	}
 
+	/**
+	 * Handle statistics button
+	 */
+	@FXML
+	private void handleStatistics() {
+		taskTimeTracker.showStatistics();
+	}
+	
+	/**
+	 * Handle statistics button for all statistics
+	 */
+	@FXML
+	private void handleAllStatistics() {
+		taskTimeTracker.showAllStatistics();
+	}
 
 	/**
 	 * Closes the application.
