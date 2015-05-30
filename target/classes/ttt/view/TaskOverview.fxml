@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.ttt.view.TaskOverviewController">
    <children>
-      <TableView fx:id="taskTable" layoutY="25.0" prefHeight="575.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <TableView fx:id="taskTable" layoutY="41.0" prefHeight="559.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
         <columns>
           <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Number" />
           <TableColumn fx:id="nameColumn" prefWidth="184.0" text="Description" />
@@ -15,7 +15,7 @@
             <TableColumn fx:id="minutesColumn" prefWidth="90.0" text="Minutes" />
         </columns>
       </TableView>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="800.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="800.0">
          <children>
             <Button mnemonicParsing="false" onAction="#handleAddTask" text="Add task" />
             <Button layoutX="100.0" mnemonicParsing="false" onAction="#handleEditTask" text="Edit task" />
