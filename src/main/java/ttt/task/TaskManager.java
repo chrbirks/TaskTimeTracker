@@ -32,13 +32,13 @@ public class TaskManager {
 	}
 	
 	public void addTask(Task task) {
-		addTask(task.getTaskNumber(),
+		addTask(task.getTaskId(),
 				task.getTaskName(),
 				task.getTaskTime());
 	}
 	
-	public void addTask(int taskNumber, String taskName,LocalDateTime time) {
-		Task newTask = new Task(taskNumber, taskName, time);
+	public void addTask(String taskId, String taskName,LocalDateTime time) {
+		Task newTask = new Task(taskId, taskName, time);
 		try {
 			System.out.println("New task: " + newTask.toString());
 			System.out.println("Contains task: " + taskSet.contains(newTask));
@@ -53,8 +53,8 @@ public class TaskManager {
 		}
 	}
 
-	public Task getTask(int taskNumber, String taskName) {
-		Task refTask = new Task(taskNumber, taskName, LocalDateTime.now());
+	public Task getTask(String taskId, String taskName) {
+		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
 		System.out.println("Searching for Task: " + refTask.toString());
 		
 		Iterator<Task> i = taskSet.iterator();
@@ -70,8 +70,8 @@ public class TaskManager {
 		return null;
 	}
 	
-	public boolean editTask(int taskNumber, String taskName, int newNumber, String newName) {
-		Task refTask = new Task(taskNumber, taskName, LocalDateTime.now());
+	public boolean editTask(String taskId, String taskName, String newId, String newName) {
+		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
 		System.out.println("Editing task: " + refTask);
 		
 		Iterator<Task> i = taskSet.iterator();
@@ -80,7 +80,7 @@ public class TaskManager {
 			Task task = i.next();
 			if (task.equals(refTask)) {
 				System.out.println("Editing values for task: " + task.toString());
-				task.setTaskNumber(newNumber);
+				task.setTaskId(newId);
 				task.setTaskName(newName);
 				System.out.println("Task is now: " + task.toString());
 				return true;
@@ -100,8 +100,8 @@ public class TaskManager {
 		}
 	}
 	
-	public boolean editTime(int taskNumber, String taskName, long minutes) {
-		Task refTask = new Task(taskNumber, taskName, LocalDateTime.now());
+	public boolean editTime(String taskId, String taskName, long minutes) {
+		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
 		System.out.println("Editing task: " + refTask);
 		
 		Iterator<Task> i = taskSet.iterator();
@@ -120,8 +120,8 @@ public class TaskManager {
 		return false;
 	}
 	
-	public boolean removeTask(int taskNumber, String taskName) {
-		return taskSet.remove(this.getTask(taskNumber, taskName));
+	public boolean removeTask(String taskId, String taskName) {
+		return taskSet.remove(this.getTask(taskId, taskName));
 	}
 	
 	public void clearTaskSet() {

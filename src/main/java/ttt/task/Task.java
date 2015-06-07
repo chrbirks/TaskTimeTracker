@@ -14,8 +14,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -25,7 +23,7 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class Task {
 	
-	private IntegerProperty taskNumber;
+	private StringProperty taskId;
 	private StringProperty taskName;
 	private ObjectProperty<LocalDateTime> time;
 	private LongProperty elapsedMinutes;
@@ -34,31 +32,31 @@ public class Task {
 	// JABX unmarshaller needs default constructor?
 	@SuppressWarnings("unused")
 	private Task() {
-		this.taskNumber = new SimpleIntegerProperty(999);
+		this.taskId = new SimpleStringProperty("Task123");
 		this.taskName = new SimpleStringProperty("x");
 		this.time = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.now());
 		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
 		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
 	}
 	
-	public Task(int taskNumber, String taskName, LocalDateTime time) {
-		this.taskNumber = new SimpleIntegerProperty(taskNumber);
+	public Task(String taskId, String taskName, LocalDateTime time) {
+		this.taskId = new SimpleStringProperty(taskId);
 		this.taskName = new SimpleStringProperty(taskName);
 		this.time = new SimpleObjectProperty<LocalDateTime>(time);
 		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
 		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
 	}
 	
-	public void setTaskNumber(int number) {
-		this.taskNumber.set(number);
+	public void setTaskId(String id) {
+		this.taskId.set(id);
 	}
 	
-	public int getTaskNumber() {
-		return this.taskNumber.get();
+	public String getTaskId() {
+		return taskId.get();
 	}
 	
-	public IntegerProperty getTaskNumberProperty() {
-		return this.taskNumber;
+	public StringProperty getTaskIdProperty() {
+		return taskId;
 	}
 	
 	public void setTaskName(String name) {
@@ -109,8 +107,8 @@ public class Task {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("taskNumber=");
-		sb.append(taskNumber.get());
+		sb.append("taskId=");
+		sb.append(taskId.get());
 		sb.append(", taskName=");
 		sb.append(taskName.get());
 		sb.append(", time=");
@@ -122,16 +120,21 @@ public class Task {
 		return sb.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((taskName == null) ? 0 : taskName.hashCode());
-		result = prime * result + taskNumber.get();
+		result = prime * result + ((taskId == null) ? 0 : taskId.hashCode());
+		result = prime * result	+ ((taskName == null) ? 0 : taskName.hashCode());
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,15 +144,20 @@ public class Task {
 		if (getClass() != obj.getClass())
 			return false;
 		Task other = (Task) obj;
+		
+		if (taskId.get() == null) {
+			if (other.taskId.get() != null)
+				return false;
+		} else if (!taskId.get().equals(other.taskId.get()))
+			return false;
+		
 		if (taskName.get() == null) {
 			if (other.taskName.get() != null)
 				return false;
 		} else if (!taskName.get().equals(other.taskName.get()))
 			return false;
-		if (taskNumber.get() != other.taskNumber.get())
-			return false;
+		
 		return true;
 	}
-
 
 }

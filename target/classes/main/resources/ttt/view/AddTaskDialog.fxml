@@ -17,18 +17,19 @@
               <rowConstraints>
                 <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Number" GridPane.valignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Id" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
                   <Label alignment="BOTTOM_RIGHT" text="Description" GridPane.rowIndex="1" />
-                  <TextField fx:id="numberField" GridPane.columnIndex="1" />
+                  <TextField fx:id="idField" GridPane.columnIndex="1" />
                   <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>

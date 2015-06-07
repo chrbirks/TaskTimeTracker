@@ -23,13 +23,13 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#handleOK" text="OK" GridPane.rowIndex="3" />
                   <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Number" GridPane.valignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Id" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
                   <Label alignment="BOTTOM_RIGHT" text="Description" GridPane.rowIndex="1" />
-                  <TextField fx:id="numberField" GridPane.columnIndex="1" />
+                  <TextField fx:id="idField" GridPane.columnIndex="1" />
                   <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>

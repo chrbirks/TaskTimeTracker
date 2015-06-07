@@ -62,7 +62,7 @@ public class TimeEditDialogController {
 	@FXML
 	private void handleOK() {
 		if (isInputValid()) {
-			taskManager.editTime(task.getTaskNumber(), task.getTaskName(),
+			taskManager.editTime(task.getTaskId(), task.getTaskName(),
 					Long.parseLong(minutesField.getText()));
 
 			okClicked = true;

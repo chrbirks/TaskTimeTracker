@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class TaskEditDialogController {
 	@FXML
-	private TextField numberField;
+	private TextField idField;
 	
 	@FXML
 	private TextField nameField;
@@ -34,7 +34,7 @@ public class TaskEditDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-        numberField.requestFocus();
+        idField.requestFocus();
     }
     
     /**
@@ -45,7 +45,7 @@ public class TaskEditDialogController {
     public void setTask(Task task) {
     	this.task = task;
     	
-    	numberField.setText(Integer.toString(task.getTaskNumber()));
+    	idField.setText(task.getTaskId());
     	nameField.setText(task.getTaskName());
     }
     
@@ -65,9 +65,9 @@ public class TaskEditDialogController {
     private void handleOK() {
     	if (isInputValid()) {
     		taskManager.editTask(
-    				task.getTaskNumber(), 
+    				task.getTaskId(), 
     				task.getTaskName(), 
-    			 	Integer.parseInt(numberField.getText()), 
+    			 	idField.getText(), 
     				nameField.getText());
     		
     		okClicked = true;
@@ -91,7 +91,7 @@ public class TaskEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (numberField.getText() == null || numberField.getText().length() == 0) {
+        if (idField.getText() == null || idField.getText().length() == 0) {
             errorMessage += "No valid number!"; 
         }
         if (nameField.getText() == null || nameField.getText().length() == 0) {

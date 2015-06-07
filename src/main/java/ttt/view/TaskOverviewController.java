@@ -19,7 +19,7 @@ public class TaskOverviewController {
 	private TableView<Task> taskTable;
 
 	@FXML
-	private TableColumn<Task, Integer> numberColumn;
+	private TableColumn<Task, String> idColumn;
 
 	@FXML
 	private TableColumn<Task, String> nameColumn;
@@ -54,10 +54,10 @@ public class TaskOverviewController {
 	private void initialize() {
 
 		// Initialize the task table
-		numberColumn.setCellValueFactory(cellData -> cellData.getValue()
-				.getTaskNumberProperty().asObject());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.getTaskNameProperty());
+		idColumn.setCellValueFactory(cellData -> cellData.getValue()
+				.getTaskIdProperty());
 		minutesColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.getElapsedMinutesProperty().asObject());
 		hoursColumn.setCellValueFactory(cellData -> cellData.getValue()
@@ -225,12 +225,12 @@ public class TaskOverviewController {
 			// Remove from taskSet
 			System.out.println("Removing task from taskSet: "
 					+ taskTable.getSelectionModel().selectedItemProperty()
-							.getValue().getTaskNumber()
+							.getValue().getTaskId()
 					+ " , "
 					+ taskTable.getSelectionModel().selectedItemProperty()
 							.getValue().getTaskName());
 			taskManager.removeTask(taskTable.getSelectionModel()
-					.selectedItemProperty().getValue().getTaskNumber(),
+					.selectedItemProperty().getValue().getTaskId(),
 					taskTable.getSelectionModel().selectedItemProperty()
 							.getValue().getTaskName());
 
