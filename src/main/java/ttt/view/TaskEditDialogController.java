@@ -34,6 +34,7 @@ public class TaskEditDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+        numberField.requestFocus();
     }
     
     /**

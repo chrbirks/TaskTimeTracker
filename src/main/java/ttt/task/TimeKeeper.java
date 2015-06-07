@@ -23,7 +23,6 @@ public final class TimeKeeper implements Runnable {
 		
 	// Constructor
 	public TimeKeeper(Task activeTask, TaskOverviewController taskOverviewController) {
-		System.out.println("*beep constructor*");
 		this.activeTask = activeTask;
 		this.taskOverviewController = taskOverviewController;
 		

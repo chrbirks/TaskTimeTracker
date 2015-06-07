@@ -10,10 +10,22 @@
   <name>TaskTimeTracker</name>
   <url>http://maven.apache.org</url>
   
+  <!-- /////////////////////////////////////////////// -->
+  
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+  </properties>
+  
+  <!-- Set resource (fxml) directory -->
+  <build>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes><exclude>**/*.java</exclude></excludes>
+      </resource>
+    </resources>
+  </build>
     
   <repositories>
     <repository>

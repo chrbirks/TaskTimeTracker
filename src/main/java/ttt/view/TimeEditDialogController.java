@@ -32,6 +32,7 @@ public class TimeEditDialogController {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+		minutesField.requestFocus();
 	}
 
 	/**

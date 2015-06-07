@@ -26,6 +26,7 @@ public class AddTaskDialogController {
 	 */
 	@FXML
 	private void initialize() {
+		
 	}
 
 	/**
@@ -35,6 +36,7 @@ public class AddTaskDialogController {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+		numberField.requestFocus();
 	}
 
 	/**

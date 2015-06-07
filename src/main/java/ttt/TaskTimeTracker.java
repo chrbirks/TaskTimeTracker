@@ -50,21 +50,13 @@ public class TaskTimeTracker extends Application {
 
 	private TaskOverviewController taskOverviewController;
 
-	// Locations for Eclipse
-//	private static final String ROOT_LAYOUT_LOCATION = "/main/resources/ttt/view/RootLayout.fxml";
-//	private static final String TASK_OVERVIEW_LOCATION = "/main/resources/ttt/view/TaskOverview.fxml";
-//	private static final String ADDTASKDIALOG_LOCATION = "/main/resources/ttt/view/AddTaskDialog.fxml";
-//	private static final String EDITTASKDIALOG_LOCATION = "/main/resources/ttt/view/TaskEditDialog.fxml";
-//	private static final String TIMEEDITDIALOG_LOCATION = "/main/resources/ttt/view/TimeEditDialog.fxml";
-//	private static final String STATISTICS_LOCATION = "/main/resources/ttt/view/Statistics.fxml";
-	
-	// Locations for Maven jar
-	private static final String ROOT_LAYOUT_LOCATION = "/ttt/view/RootLayout.fxml";
-	private static final String TASK_OVERVIEW_LOCATION = "/ttt/view/TaskOverview.fxml";
-	private static final String ADDTASKDIALOG_LOCATION = "/ttt/view/AddTaskDialog.fxml";
-	private static final String EDITTASKDIALOG_LOCATION = "/ttt/view/TaskEditDialog.fxml";
-	private static final String TIMEEDITDIALOG_LOCATION = "/ttt/view/TimeEditDialog.fxml";
-	private static final String STATISTICS_LOCATION = "/ttt/view/Statistics.fxml";
+	// Resource locations
+	private static final String ROOT_LAYOUT_LOCATION    = "/main/resources/ttt/view/RootLayout.fxml";
+	private static final String TASK_OVERVIEW_LOCATION  = "/main/resources/ttt/view/TaskOverview.fxml";
+	private static final String ADDTASKDIALOG_LOCATION  = "/main/resources/ttt/view/AddTaskDialog.fxml";
+	private static final String EDITTASKDIALOG_LOCATION = "/main/resources/ttt/view/TaskEditDialog.fxml";
+	private static final String TIMEEDITDIALOG_LOCATION = "/main/resources/ttt/view/TimeEditDialog.fxml";
+	private static final String STATISTICS_LOCATION     = "/main/resources/ttt/view/Statistics.fxml";
 	
     // ExecutorService
 	private static final int N_THREADS_CORE_POOL = 1;
