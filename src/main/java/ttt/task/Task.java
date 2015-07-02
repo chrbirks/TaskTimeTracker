@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import main.java.ttt.aux.LocalDateTimeAdapter;
+import main.java.ttt.auxil.LocalDateTimeAdapter;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;

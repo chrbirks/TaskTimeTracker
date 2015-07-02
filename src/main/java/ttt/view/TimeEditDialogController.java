@@ -1,5 +1,7 @@
 package main.java.ttt.view;
 
+import java.util.Scanner;
+
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import javafx.fxml.FXML;
@@ -62,9 +64,26 @@ public class TimeEditDialogController {
 	@FXML
 	private void handleOK() {
 		if (isInputValid()) {
-			taskManager.editTime(task.getTaskId(), task.getTaskName(),
-					Long.parseLong(minutesField.getText()));
-
+			String minutes = minutesField.getText();
+			// If '+' first, add to time
+			if (minutes.substring(0, 1).equals("+")) {
+				long newTime = task.getElapsedMinutes() + Long.parseLong(minutes.substring(1)); 
+				taskManager.editTime(
+						task.getTaskId(),
+						task.getTaskName(),
+						newTime);
+			// If '-' first, substract time
+			} else if (minutes.substring(0, 1).equals("-")) {
+				long newTime = task.getElapsedMinutes() - Long.parseLong(minutes.substring(1));
+				taskManager.editTime(
+						task.getTaskId(),
+						task.getTaskName(),
+						newTime);
+			// Else set exact time
+			} else {
+				taskManager.editTime(task.getTaskId(), task.getTaskName(),
+						Long.parseLong(minutes));
+			}
 			okClicked = true;
 			dialogStage.close();
 		}
@@ -87,21 +106,47 @@ public class TimeEditDialogController {
 		String errorMessage = "";
 		String minutes = minutesField.getText();
 
-		if (minutes == null) {
-			errorMessage += "Not valid number: " + minutes;
-		}
+		try {
+			if (minutes == null) {
+				errorMessage += "Not valid number: " + minutes;
+			}
 
-		if (Long.parseLong(minutes) < 0) {
-			errorMessage += "Number is below 0: " + Long.parseLong(minutes);
-		}
+			// if (Long.parseLong(minutes) < 0) {
+			// errorMessage += "Number is below 0: " + Long.parseLong(minutes);
+			// }
 
-		if (errorMessage.length() == 0) {
-			return true;
-		} else {
+			if (minutes.substring(0, 1) == "+"
+					|| minutes.substring(0, 1) == "-") {
+				if (isLong(minutes.substring(1))) {
+					return true;
+				}
+			}
+
+			if (errorMessage.length() == 0) {
+				return true;
+			} else {
+				// TODO: better error
+				System.err.println("ERROR: invalid input: " + errorMessage);
+				return false;
+			}
+		} catch (NumberFormatException e) {
 			// TODO: better error
-			System.out.println("ERROR: invalid input: " + errorMessage);
+			System.err.println("ERROR: not a number");
 			return false;
 		}
+	}
+
+	private static boolean isLong(String s) {
+		Scanner sc = new Scanner(s.trim());
+
+		if (!sc.hasNextLong()) {
+			sc.close();
+			return false;
+		}
+		sc.nextLong();
+		boolean result = !sc.hasNext();
+		sc.close();
+		return result;
 	}
 
 }

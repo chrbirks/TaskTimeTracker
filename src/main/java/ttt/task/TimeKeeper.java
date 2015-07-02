@@ -3,7 +3,7 @@ package main.java.ttt.task;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import main.java.ttt.aux.DoubleRound;
+import main.java.ttt.auxil.DoubleRound;
 import main.java.ttt.task.Task;
 import main.java.ttt.view.TaskOverviewController;
 

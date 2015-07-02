@@ -11,7 +11,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import main.java.ttt.TaskTimeTracker;
-import main.java.ttt.aux.DoubleRound;
+import main.java.ttt.auxil.DoubleRound;
 import main.java.ttt.model.TaskSetWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
