@@ -2,11 +2,17 @@ package main.java.ttt.view;
 
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TaskEditDialogController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TaskEditDialogController.class);
+	
 	@FXML
 	private TextField idField;
 	
@@ -102,7 +108,7 @@ public class TaskEditDialogController {
             return true;
         } else {
         	// TODO: better error
-        	System.out.println("ERROR: invalid input: " + errorMessage);
+        	LOGGER.error("Invalid input: " + errorMessage);
         	return false;
         }
     }

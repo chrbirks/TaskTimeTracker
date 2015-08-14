@@ -2,6 +2,9 @@ package main.java.ttt.view;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import javafx.fxml.FXML;
@@ -9,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TimeEditDialogController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TimeEditDialogController.class);
 
 	@FXML
 	private TextField minutesField;
@@ -126,12 +130,12 @@ public class TimeEditDialogController {
 				return true;
 			} else {
 				// TODO: better error
-				System.err.println("ERROR: invalid input: " + errorMessage);
+				LOGGER.error("Invalid input: " + errorMessage);
 				return false;
 			}
 		} catch (NumberFormatException e) {
 			// TODO: better error
-			System.err.println("ERROR: not a number");
+			LOGGER.error("Not a number");
 			return false;
 		}
 	}

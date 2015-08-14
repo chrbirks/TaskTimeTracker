@@ -10,6 +10,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.ttt.TaskTimeTracker;
 import main.java.ttt.auxil.DoubleRound;
 import main.java.ttt.model.TaskSetWrapper;
@@ -17,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TaskManager {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TaskManager.class);
 
 	private static TaskManager instance;
 
@@ -40,10 +44,10 @@ public class TaskManager {
 	public void addTask(String taskId, String taskName,LocalDateTime time) {
 		Task newTask = new Task(taskId, taskName, time);
 		try {
-			System.out.println("New task: " + newTask.toString());
-			System.out.println("Contains task: " + taskSet.contains(newTask));
+			LOGGER.debug("New task: " + newTask.toString());
+			LOGGER.debug("Contains task: " + taskSet.contains(newTask));
 			if (!taskSet.contains(newTask)) {
-				System.out.println("Adding task");
+				LOGGER.debug("Adding task");
 				taskSet.add(newTask);
 			} else {
 				// TODO: Throw AlreadyExistesException
@@ -55,43 +59,43 @@ public class TaskManager {
 
 	public Task getTask(String taskId, String taskName) {
 		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
-		System.out.println("Searching for Task: " + refTask.toString());
+		LOGGER.debug("Searching for Task: " + refTask.toString());
 		
 		Iterator<Task> i = taskSet.iterator();
-		System.out.println("hasNext: " + i.hasNext());
+		LOGGER.debug("hasNext: " + i.hasNext());
 		while (i.hasNext()) {
 			Task task = i.next();
 			if (task.equals(refTask)) {
-				System.out.println("Getting task: " + task.toString());
+				LOGGER.debug("Getting task: " + task.toString());
 				return task;
 			}
 		}
-		System.out.println("Task not found");
+		LOGGER.debug("Task not found");
 		return null;
 	}
 	
 	public boolean editTask(String taskId, String taskName, String newId, String newName) {
 		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
-		System.out.println("Editing task: " + refTask);
+		LOGGER.debug("Editing task: " + refTask);
 		
 		Iterator<Task> i = taskSet.iterator();
-		System.out.println("hasNext: " + i.hasNext());
+		LOGGER.debug("hasNext: " + i.hasNext());
 		while (i.hasNext()) {
 			Task task = i.next();
 			if (task.equals(refTask)) {
-				System.out.println("Editing values for task: " + task.toString());
+				LOGGER.debug("Editing values for task: " + task.toString());
 				task.setTaskId(newId);
 				task.setTaskName(newName);
-				System.out.println("Task is now: " + task.toString());
+				LOGGER.debug("Task is now: " + task.toString());
 				return true;
 			}
 		}
-		System.out.println("Task not found");
+		LOGGER.debug("Task not found");
 		return false;
 	}
 	
 	public void resetAllTimes() {
-		System.out.println("Resetting times");
+		LOGGER.debug("Resetting times");
 		Iterator<Task> i = taskSet.iterator();
 		while (i.hasNext()) {
 			Task task = i.next();
@@ -102,21 +106,21 @@ public class TaskManager {
 	
 	public boolean editTime(String taskId, String taskName, long minutes) {
 		Task refTask = new Task(taskId, taskName, LocalDateTime.now());
-		System.out.println("Editing task: " + refTask);
+		LOGGER.debug("Editing task: " + refTask);
 		
 		Iterator<Task> i = taskSet.iterator();
-		System.out.println("hasNext: " + i.hasNext());
+		LOGGER.debug("hasNext: " + i.hasNext());
 		while (i.hasNext()) {
 			Task task = i.next();
 			if (task.equals(refTask)) {
-				System.out.println("Editing time for task: " + task.toString());
+				LOGGER.debug("Editing time for task: " + task.toString());
 				task.setElapsedMinutes(minutes);
 				task.setElapsedHours(DoubleRound.doubleRound(minutes/60.0, 2));
-				System.out.println("Task is now: " + task.toString());
+				LOGGER.debug("Task is now: " + task.toString());
 				return true;
 			}
 		}
-		System.out.println("Task not found");
+		LOGGER.debug("Task not found");
 		return false;
 	}
 	
@@ -212,8 +216,7 @@ public class TaskManager {
 //	        alert.setContentText("Could not load data from file:\n" + file.getPath());
 //
 //	        alert.showAndWait();
-	    	System.err.println("ERROR: could not load data from file: " + file.getPath());
-	    	e.printStackTrace();
+	    	LOGGER.error("Could not load data from file: " + file.getPath(), e);
 	    }
 	}
 	
@@ -245,8 +248,7 @@ public class TaskManager {
 //	        alert.setContentText("Could not save data to file:\n" + file.getPath());
 //
 //	        alert.showAndWait();
-	    	System.out.println("ERROR: could not save data to file: " + file.getPath());
-	    	e.printStackTrace();
+	    	LOGGER.error("Could not save data to file: " + file.getPath(), e);
 	    }
 	}
 	
@@ -273,8 +275,7 @@ public class TaskManager {
 //	        alert.setContentText("Could not load data from file:\n" + file.getPath());
 //
 //	        alert.showAndWait();
-	    	System.err.println("ERROR: could not load data from file: " + file.getPath());
-	    	e.printStackTrace();
+	    	LOGGER.error("Could not load data from file: " + file.getPath(), e);
 	    }
 	    return wrapper.getTasks();
 	}

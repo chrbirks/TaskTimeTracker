@@ -3,11 +3,15 @@ package main.java.ttt.task;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.ttt.auxil.DoubleRound;
 import main.java.ttt.task.Task;
 import main.java.ttt.view.TaskOverviewController;
 
 public final class TimeKeeper implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TimeKeeper.class);
 	
 	private Task activeTask;
 	
@@ -50,17 +54,17 @@ public final class TimeKeeper implements Runnable {
 		elapsedSeconds = taskStartTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 		elapsedMinutes = taskStartTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
 		elapsedHours = DoubleRound.doubleRound(elapsedMinutes/60.0, 2);
-		System.out.println("Elapsed time (h:m:s): " + elapsedHours + ":" + elapsedMinutes + ":" + elapsedSeconds);
+		LOGGER.debug("Elapsed time (h:m:s): " + elapsedHours + ":" + elapsedMinutes + ":" + elapsedSeconds);
 		
 		// Update internal times in task
 		task.setElapsedMinutes(origMinutes + elapsedMinutes);
 		task.setElapsedHours(origHours + elapsedHours);
-		System.out.println("Total elapsed time (h:m): " + task.getElapsedHours() + ":" + task.getElapsedMinutes());
+		LOGGER.debug("Total elapsed time (h:m): " + task.getElapsedHours() + ":" + task.getElapsedMinutes());
 	}
 
 	private void resetTime(Task task) {
 		task.setTaskTime(LocalDateTime.now());
-		System.out.println("Resetting time to: " + task.getTaskTime());
+		LOGGER.debug("Resetting time to: " + task.getTaskTime());
 	}
 	
 

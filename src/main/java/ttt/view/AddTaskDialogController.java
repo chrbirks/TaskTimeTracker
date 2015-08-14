@@ -2,12 +2,18 @@ package main.java.ttt.view;
 
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import main.java.ttt.TaskTimeTracker;
 import main.java.ttt.task.TaskManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AddTaskDialogController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AddTaskDialogController.class);
+	
 	@FXML
 	private TextField idField;
 
@@ -54,7 +60,7 @@ public class AddTaskDialogController {
 	@FXML
 	private void handleAdd() {
 		if (isInputValid()) {
-			System.out.println("Adding task");
+			LOGGER.debug("Adding task");
 			taskManager.addTask(
 					idField.getText(),
 					nameField.getText(),
@@ -93,7 +99,7 @@ public class AddTaskDialogController {
 			return true;
 		} else {
 			// TODO: better error
-			System.out.println("ERROR: invalid input");
+			LOGGER.error("Invalid input");
 			return false;
 		}
 	}

@@ -5,6 +5,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.ttt.TaskTimeTracker;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
@@ -14,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TaskOverviewController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TaskOverviewController.class);
 
 	@FXML
 	private TableView<Task> taskTable;
@@ -111,16 +115,16 @@ public class TaskOverviewController {
 	 * @param activeTask
 	 */
 	public void handleTaskChange(Task oldTask, Task activeTask) {
-		System.out.println("timeKeeper startet");
+		LOGGER.debug("timeKeeper startet");
 
 		// Stop currently running timeKeeper thread
 		if (scheduledFuture != null) {
-			System.out.println("Cancelling thread");
+			LOGGER.debug("Cancelling thread");
 			scheduledFuture.cancel(true);
 		}
 
 		if (activeTask != null) {
-			System.out.println("New task is: " + activeTask.toString());
+			LOGGER.debug("New task is: " + activeTask.toString());
 
 			taskTable.getColumns().get(0).setVisible(false);
 			taskTable.getColumns().get(0).setVisible(true);
@@ -133,7 +137,7 @@ public class TaskOverviewController {
 		}
 		// TEST:
 		if (activeTask != null) {
-			System.out.println("activeTask: " + activeTask.toString());
+			LOGGER.debug("activeTask: " + activeTask.toString());
 		}
 
 	}
@@ -153,7 +157,7 @@ public class TaskOverviewController {
 	private void handleEditTask() {
 		Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
 		if (selectedTask != null) {
-			System.out.println("Editing task: " + selectedTask.toString());
+			LOGGER.debug("Editing task: " + selectedTask.toString());
 			boolean okClicked = taskTimeTracker
 					.showTaskEditDialog(selectedTask);
 			if (okClicked) {
@@ -163,7 +167,7 @@ public class TaskOverviewController {
 			} else {
 				// Nothing selected
 				// TODO: better error
-				System.out.println("ERROR: no task selected");
+				LOGGER.error("No task selected");
 			}
 		}
 	}
@@ -175,7 +179,7 @@ public class TaskOverviewController {
 	private void handleEditTime() {
 		Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
 		if (selectedTask != null) {
-			System.out.println("Editing time: " + selectedTask.toString());
+			LOGGER.debug("Editing time: " + selectedTask.toString());
 			boolean okClicked = taskTimeTracker
 					.showTimeEditDialog(selectedTask);
 			if (okClicked) {
@@ -183,7 +187,7 @@ public class TaskOverviewController {
 			} else {
 				// Nothing selected
 				// TODO: better error
-				System.out.println("ERROR: no task selected");
+				LOGGER.error("No task selected");
 			}
 		}
 	}
@@ -223,7 +227,7 @@ public class TaskOverviewController {
 		if (selectedIndex >= 0) {
 
 			// Remove from taskSet
-			System.out.println("Removing task from taskSet: "
+			LOGGER.debug("Removing task from taskSet: "
 					+ taskTable.getSelectionModel().selectedItemProperty()
 							.getValue().getTaskId()
 					+ " , "
@@ -236,7 +240,7 @@ public class TaskOverviewController {
 
 		} else {
 			// TODO: better error
-			System.out.println("ERROR: no task selected");
+			LOGGER.error("No task selected");
 		}
 
 	}

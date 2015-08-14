@@ -9,6 +9,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.java.ttt.task.Constants;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
@@ -42,6 +45,7 @@ import javafx.stage.Stage;
 
 
 public class TaskTimeTracker extends Application {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TaskTimeTracker.class);
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -80,12 +84,12 @@ public class TaskTimeTracker extends Application {
 
 	@Override
 	public void stop() {
-		System.out.println("Closing application");
+		LOGGER.info("Closing application");
 		scheduler.shutdown();
 		try {
 			super.stop();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 		}
 	}
 
@@ -111,7 +115,7 @@ public class TaskTimeTracker extends Application {
 
 			primaryStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 		}
 
 		// Try to load last opened person file.
@@ -142,7 +146,7 @@ public class TaskTimeTracker extends Application {
 			taskOverviewController.setTaskTimeTracker(this);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 		}
 	}
 
@@ -186,7 +190,7 @@ public class TaskTimeTracker extends Application {
 
 			return controller.isOkClicked();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 			return false;
 		}
 	}
@@ -226,7 +230,7 @@ public class TaskTimeTracker extends Application {
 
 			return controller.isOkClicked();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 			return false;
 		}
 	}
@@ -259,7 +263,7 @@ public class TaskTimeTracker extends Application {
 
 			return controller.isOkClicked();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("", e);
 			return false;
 		}
 	}
@@ -286,7 +290,7 @@ public class TaskTimeTracker extends Application {
 	        dialogStage.show();
 
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	    	LOGGER.error("", e);
 	    }
 	}
 	
@@ -324,7 +328,7 @@ public class TaskTimeTracker extends Application {
 	        dialogStage.show();
 
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	    	LOGGER.error("", e);
 	    }
 	}
 	
