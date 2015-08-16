@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import main.java.ttt.task.Constants;
+import main.java.ttt.task.Settings;
 import main.java.ttt.task.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,14 @@ public class StatisticsController {
 	@FXML
 	private CategoryAxis xAxis;
 	
+	protected String projectTaskName = null;
+	
+	protected String otherProjectTaskId = null;
+	protected String otherProjectTaskName = null;
+	
+	protected String otherNonProjectTaskId = null;
+	protected String otherNonProjectTaskName = null;
+	
 	ObservableList<String> categories = FXCollections.observableArrayList();
 	
 	 /**
@@ -31,9 +40,17 @@ public class StatisticsController {
      */
 	@FXML
 	private void initialize() {
-		categories.add(Constants.PROJECT_TASK_NAME);
-		categories.add(Constants.OTHER_PROJECT_TASK_NAME);
-		categories.add(Constants.OTHER_NON_PROJECT_TASK_NAME);
+		projectTaskName = Settings.getProjectRelatedName();
+		
+		otherProjectTaskId = Settings.getOtherProjectRelatedId();
+		otherProjectTaskName = Settings.getOtherProjectRelatedName();
+		
+		otherNonProjectTaskId = Settings.getOtherNonProjectRelatedId();
+		otherNonProjectTaskName = Settings.getOtherNonProjectRelatedName();
+		
+		categories.add(projectTaskName);
+		categories.add(otherProjectTaskName);
+		categories.add(otherNonProjectTaskName);
 		
 		xAxis.setCategories(categories);
 	}
@@ -50,31 +67,27 @@ public class StatisticsController {
 		// Loop through all tasks and store the time in the appropriate category
 		for (Task t : tasks) {
 			double time = t.getElapsedHours();
-			switch (t.getTaskId()) {
-			case Constants.OTHER_NON_PROJECT_TASK_ID : 
-				if (categoryMap.get(Constants.OTHER_NON_PROJECT_TASK_NAME) != null) {
-					old_time = categoryMap.get(Constants.OTHER_NON_PROJECT_TASK_NAME);
+			if (t.getTaskId() == otherProjectTaskId) {
+				if (categoryMap.get(otherNonProjectTaskName) != null) {
+					old_time = categoryMap.get(otherNonProjectTaskName);
 				} else {
 					old_time = 0;
 				}
-				categoryMap.put(Constants.OTHER_NON_PROJECT_TASK_NAME, time+old_time);
-				break;
-			case Constants.OTHER_PROJECT_TASK_ID :
-				if (categoryMap.get(Constants.OTHER_PROJECT_TASK_NAME) != null) {
-					old_time = categoryMap.get(Constants.OTHER_PROJECT_TASK_NAME);
+				categoryMap.put(otherNonProjectTaskName, time+old_time);
+			} else if (t.getTaskId() == otherNonProjectTaskId) {
+				if (categoryMap.get(otherProjectTaskName) != null) {
+					old_time = categoryMap.get(otherProjectTaskName);
 				} else {
 					old_time = 0;
 				}
-				categoryMap.put(Constants.OTHER_PROJECT_TASK_NAME, time+old_time);
-				break;
-			default : 
-				if (categoryMap.get(Constants.PROJECT_TASK_NAME) != null) {
-					old_time = categoryMap.get(Constants.PROJECT_TASK_NAME);
+				categoryMap.put(otherProjectTaskName, time+old_time);
+			} else {
+				if (categoryMap.get(projectTaskName) != null) {
+					old_time = categoryMap.get(projectTaskName);
 				} else {
 					old_time = 0;
 				}
-				categoryMap.put(Constants.PROJECT_TASK_NAME, time+old_time);
-				break;
+				categoryMap.put(projectTaskName, time+old_time);
 			}
 		}
 		

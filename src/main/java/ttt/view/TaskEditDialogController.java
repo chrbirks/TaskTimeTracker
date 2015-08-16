@@ -31,6 +31,7 @@ public class TaskEditDialogController {
      */
     @FXML
     private void initialize() {
+    	//TODO: Set fields with values from Settings.
     }
     
     /**

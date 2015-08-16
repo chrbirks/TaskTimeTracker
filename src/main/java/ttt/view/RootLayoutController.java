@@ -121,6 +121,14 @@ public class RootLayoutController {
 	private void handleAllStatistics() {
 		taskTimeTracker.showAllStatistics();
 	}
+	
+	/**
+	 * Handle settings button
+	 */
+	@FXML
+	private void handleSettings() {
+		taskTimeTracker.showSettings();
+	}
 
 	/**
 	 * Closes the application.

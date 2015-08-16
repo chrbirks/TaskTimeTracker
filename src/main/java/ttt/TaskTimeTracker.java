@@ -3,6 +3,7 @@ package main.java.ttt;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -13,10 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import main.java.ttt.task.Constants;
+import main.java.ttt.task.Settings;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import main.java.ttt.view.AddTaskDialogController;
 import main.java.ttt.view.RootLayoutController;
+import main.java.ttt.view.SettingsOverviewController;
 import main.java.ttt.view.StatisticsController;
 import main.java.ttt.view.TaskEditDialogController;
 import main.java.ttt.view.TaskOverviewController;
@@ -61,6 +64,7 @@ public class TaskTimeTracker extends Application {
 	private static final String EDITTASKDIALOG_LOCATION = "/main/resources/ttt/view/TaskEditDialog.fxml";
 	private static final String TIMEEDITDIALOG_LOCATION = "/main/resources/ttt/view/TimeEditDialog.fxml";
 	private static final String STATISTICS_LOCATION     = "/main/resources/ttt/view/Statistics.fxml";
+	private static final String SETTINGS_LOCATION       = "/main/resources/ttt/view/SettingsOverview.fxml";
 	
     // ExecutorService
 	private static final int N_THREADS_CORE_POOL = 1;
@@ -332,9 +336,31 @@ public class TaskTimeTracker extends Application {
 	    }
 	}
 	
+	public void showSettings() {
+		try {
+			// Load the fxml file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(TaskTimeTracker.class.getResource(SETTINGS_LOCATION));
+			AnchorPane page = (AnchorPane) loader.load();
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Settings");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        SettingsOverviewController controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+
+	        dialogStage.show();
+		} catch (IOException e) {
+			LOGGER.error("", e);
+		}
+	}
+	
 	private List<File> getLogFiles() {
 		List<File> fileList = new ArrayList<File>();
-		File directory = new File(Constants.LOG_FILE_DIR);
+		File directory = new File(Settings.getLogDir());
 		
 		// Get all the files from the directory
 		File[] allFiles = directory.listFiles(new FilenameFilter() {
@@ -522,11 +548,10 @@ public class TaskTimeTracker extends Application {
 		
 		
 
-//		TaskManager taskManager = TaskManager.getInstance();
-//		taskManager.addTask(123, "Jira", LocalDateTime.now());
-//		taskManager.addTask(456, "Confluence", LocalDateTime.now());
-//		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
-//		taskManager.addTask(789, "Jenkins", LocalDateTime.now());
+		TaskManager taskManager = TaskManager.getInstance();
+		taskManager.addTask("0", "Andet", LocalDateTime.now());
+		taskManager.addTask("1", "Andet", LocalDateTime.now());
+		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
 
 		launch(args);
 	}
