@@ -3,19 +3,22 @@ package main.java.ttt;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.java.ttt.task.Constants;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
@@ -26,13 +29,6 @@ import main.java.ttt.view.StatisticsController;
 import main.java.ttt.view.TaskEditDialogController;
 import main.java.ttt.view.TaskOverviewController;
 import main.java.ttt.view.TimeEditDialogController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 //import com.atlassian.jira.rest.*;
 //import com.atlassian.jira.rest.client.JiraRestClient;
@@ -360,58 +356,6 @@ public class TaskTimeTracker extends Application {
 		}
 	}
 	
-//	/*
-//	 * Save settings to file
-//	 */
-//	public void saveSettingsToFile() {
-//		File file = new File(Constants.SETTINGS_FILE_LOCATION);
-//		try {
-//	        JAXBContext context = JAXBContext
-//	                .newInstance(Settings.class);
-//	        Marshaller m = context.createMarshaller();
-//	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//
-//	        // Marshalling and saving XML to the file.
-//	        m.marshal(settings, file);
-//
-//	    } catch (Exception e) { // catches ANY exception
-////	        Alert alert = new Alert(AlertType.ERROR);
-////	        alert.setTitle("Error");
-////	        alert.setHeaderText("Could not save data");
-////	        alert.setContentText("Could not save data to file:\n" + file.getPath());
-////
-////	        alert.showAndWait();
-//	    	LOGGER.error("Could not save settings to file: " + file.getPath(), e);
-//	    }
-//	}
-//	public void saveTaskDataToFile(File file) {
-//	    try {
-//	        JAXBContext context = JAXBContext
-//	                .newInstance(TaskSetWrapper.class);
-//	        Marshaller m = context.createMarshaller();
-//	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//
-//	        // Wrapping our task data.
-//	        TaskSetWrapper wrapper = new TaskSetWrapper();
-//	        wrapper.setTasks(taskSet);
-//
-//	        // Marshalling and saving XML to the file.
-//	        m.marshal(wrapper, file);
-//
-//	        // Save the file path to the registry.
-//	        setTaskFilePath(file);
-//	    } catch (Exception e) { // catches ANY exception
-////	        Alert alert = new Alert(AlertType.ERROR);
-////	        alert.setTitle("Error");
-////	        alert.setHeaderText("Could not save data");
-////	        alert.setContentText("Could not save data to file:\n" + file.getPath());
-////
-////	        alert.showAndWait();
-//	    	LOGGER.error("Could not save data to file: " + file.getPath(), e);
-//	    }
-//	}
-
-	
 	private List<File> getLogFiles() {
 		List<File> fileList = new ArrayList<File>();
 		File directory = new File(SettingsManager.getLogDir());
@@ -602,10 +546,10 @@ public class TaskTimeTracker extends Application {
 		
 		
 
-		TaskManager taskManager = TaskManager.getInstance();
-		taskManager.addTask("0", "Andet", LocalDateTime.now());
-		taskManager.addTask("1", "Andet", LocalDateTime.now());
-		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
+//		TaskManager taskManager = TaskManager.getInstance();
+//		taskManager.addTask("0", "Andet", LocalDateTime.now());
+//		taskManager.addTask("1", "Andet", LocalDateTime.now());
+//		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
 
 		launch(args);
 	}

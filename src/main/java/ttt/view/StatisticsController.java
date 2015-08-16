@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.java.ttt.SettingsManager;
-import main.java.ttt.task.Constants;
-import main.java.ttt.task.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import main.java.ttt.SettingsManager;
+import main.java.ttt.task.Task;
 
 public class StatisticsController {
 
