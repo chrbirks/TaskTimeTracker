@@ -115,7 +115,7 @@ public class TaskOverviewController {
 	 * @param activeTask
 	 */
 	public void handleTaskChange(Task oldTask, Task activeTask) {
-		LOGGER.debug("timeKeeper startet");
+		LOGGER.debug("Timer startet");
 
 		// Stop currently running timeKeeper thread
 		if (scheduledFuture != null) {
@@ -130,10 +130,9 @@ public class TaskOverviewController {
 			taskTable.getColumns().get(0).setVisible(true);
 
 			timeKeeper = new TimeKeeper(activeTask, this);
-
 			scheduledFuture = scheduler.scheduleAtFixedRate(timeKeeper, 0,
 					POLL_INTERVAL, SECONDS);
-
+			
 		}
 		// TEST:
 		if (activeTask != null) {

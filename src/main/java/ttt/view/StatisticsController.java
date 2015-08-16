@@ -66,20 +66,20 @@ public class StatisticsController {
 		// Loop through all tasks and store the time in the appropriate category
 		for (Task t : tasks) {
 			double time = t.getElapsedHours();
-			if (t.getTaskId() == otherProjectTaskId) {
-				if (categoryMap.get(otherNonProjectTaskName) != null) {
-					old_time = categoryMap.get(otherNonProjectTaskName);
-				} else {
-					old_time = 0;
-				}
-				categoryMap.put(otherNonProjectTaskName, time+old_time);
-			} else if (t.getTaskId() == otherNonProjectTaskId) {
+			if (t.getTaskId().equals(otherProjectTaskId)) {
 				if (categoryMap.get(otherProjectTaskName) != null) {
 					old_time = categoryMap.get(otherProjectTaskName);
 				} else {
 					old_time = 0;
 				}
 				categoryMap.put(otherProjectTaskName, time+old_time);
+			} else if (t.getTaskId().equals(otherNonProjectTaskId)) {
+				if (categoryMap.get(otherNonProjectTaskName) != null) {
+					old_time = categoryMap.get(otherNonProjectTaskName);
+				} else {
+					old_time = 0;
+				}
+				categoryMap.put(otherNonProjectTaskName, time+old_time);
 			} else {
 				if (categoryMap.get(projectTaskName) != null) {
 					old_time = categoryMap.get(projectTaskName);

@@ -3,6 +3,7 @@ package main.java.ttt;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -19,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.ttt.logger.TaskLoggerManager;
 import main.java.ttt.task.Constants;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
@@ -52,6 +54,7 @@ public class TaskTimeTracker extends Application {
 	private BorderPane rootLayout;
 
 	TaskManager taskManager = TaskManager.getInstance();
+	TaskLoggerManager taskLoggerManager = new TaskLoggerManager(taskManager, scheduler);
 
 	private TaskOverviewController taskOverviewController;
 
@@ -120,11 +123,11 @@ public class TaskTimeTracker extends Application {
 			LOGGER.error("", e);
 		}
 
-		// Try to load last opened person file.
-		File file = taskManager.getTaskFilePath();
-		if (file != null && file.exists() && !file.isDirectory()) {
-			taskManager.loadTaskDataFromFile(file);
-		}
+//		// Try to load last opened person file.
+//		File file = taskManager.getTaskFilePath();
+//		if (file != null && file.exists() && !file.isDirectory()) {
+//			taskManager.loadTaskDataFromFile(file);
+//		}
 	}
 
 	/**
@@ -356,6 +359,10 @@ public class TaskTimeTracker extends Application {
 		}
 	}
 	
+	/**
+	 * Returns a list of all log files used by Statistics
+	 * @return List<File> of log files
+	 */
 	private List<File> getLogFiles() {
 		List<File> fileList = new ArrayList<File>();
 		File directory = new File(SettingsManager.getLogDir());
@@ -546,10 +553,10 @@ public class TaskTimeTracker extends Application {
 		
 		
 
-//		TaskManager taskManager = TaskManager.getInstance();
-//		taskManager.addTask("0", "Andet", LocalDateTime.now());
-//		taskManager.addTask("1", "Andet", LocalDateTime.now());
-//		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
+		TaskManager taskManager = TaskManager.getInstance();
+		taskManager.addTask("0", "Andet", LocalDateTime.now());
+		taskManager.addTask("1", "Andet", LocalDateTime.now());
+		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
 
 		launch(args);
 	}
