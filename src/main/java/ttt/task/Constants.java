@@ -8,4 +8,6 @@ public interface Constants {
 	@Deprecated
 	public static final String LOG_FILE_TYPE = ".xml";
 	
+	public static final String SETTINGS_FILE_LOCATION = "./settings.xml";
+	
 }

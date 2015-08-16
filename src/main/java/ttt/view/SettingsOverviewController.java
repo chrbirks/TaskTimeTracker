@@ -7,7 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.ttt.task.Settings;
+import main.java.ttt.TaskTimeTracker;
+import main.java.ttt.task.SettingsManager;
 
 /**
  * @author chrbirks
@@ -33,6 +34,8 @@ public class SettingsOverviewController {
 	private Stage dialogStage;
 	
 	private boolean okClicked = false;
+	
+	private SettingsManager settingsManager = SettingsManager.getInstance();
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -51,18 +54,20 @@ public class SettingsOverviewController {
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 		
-		this.projectRelatedNameField.setText(Settings.getProjectRelatedName());
+		settingsManager.getSettingsFromFile();
 		
-		this.otherProjectRelatedIdField.setText(Settings.getOtherProjectRelatedId());
-		this.otherProjectRelatedNameField.setText(Settings.getOtherProjectRelatedName());
+		this.projectRelatedNameField.setText(SettingsManager.getProjectRelatedName());
 		
-		this.otherNonProjectRelatedIdField.setText(Settings.getOtherNonProjectRelatedId());
-		this.otherNonProjectRelatedTextField.setText(Settings.getOtherNonProjectRelatedName());
+		this.otherProjectRelatedIdField.setText(SettingsManager.getOtherProjectRelatedId());
+		this.otherProjectRelatedNameField.setText(SettingsManager.getOtherProjectRelatedName());
 		
-		this.logDirField.setText(Settings.getLogDir());
-		this.automaticLoggingBox.setSelected(Settings.isAutomaticLogging());
+		this.otherNonProjectRelatedIdField.setText(SettingsManager.getOtherNonProjectRelatedId());
+		this.otherNonProjectRelatedTextField.setText(SettingsManager.getOtherNonProjectRelatedName());
+		
+		this.logDirField.setText(SettingsManager.getLogDir());
+		this.automaticLoggingBox.setSelected(SettingsManager.isAutomaticLogging());
 	}
-
+	
 	/**
 	 * Returns true if the user clicked OK, false otherwise.
 	 * 
@@ -87,16 +92,22 @@ public class SettingsOverviewController {
 //			okClicked = true;
 //			dialogStage.close();
 //		}
-		Settings.setProjectRelatedName(projectRelatedNameField.getText());
 		
-		Settings.setOtherProjectRelatedId(otherProjectRelatedIdField.getText());
-		Settings.setOtherProjectRelatedName(otherProjectRelatedNameField.getText());
+		/*
+		 * Read settings from GUI
+		 */
+		SettingsManager.setProjectRelatedName(projectRelatedNameField.getText());
+		
+		SettingsManager.setOtherProjectRelatedId(otherProjectRelatedIdField.getText());
+		SettingsManager.setOtherProjectRelatedName(otherProjectRelatedNameField.getText());
 
-		Settings.setOtherNonProjectRelatedId(otherNonProjectRelatedIdField.getText());
-		Settings.setOtherNonProjectRelatedName(otherNonProjectRelatedTextField.getText());
+		SettingsManager.setOtherNonProjectRelatedId(otherNonProjectRelatedIdField.getText());
+		SettingsManager.setOtherNonProjectRelatedName(otherNonProjectRelatedTextField.getText());
 		
-		Settings.setLogDir(logDirField.getText());
-		Settings.setAutomaticLogging(automaticLoggingBox.isSelected());
+		SettingsManager.setLogDir(logDirField.getText());
+		SettingsManager.setAutomaticLogging(automaticLoggingBox.isSelected());
+		
+		settingsManager.saveSettingsToFile();
 		
 		okClicked = true;
 		dialogStage.close();

@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import main.java.ttt.task.Task;
 
 /**
- * Helper class to wrap a list of persons. This is used for saving the
- * list of persons to XML.
+ * Helper class to wrap a list of tasks. This is used for saving the
+ * list of tasks to XML.
  */
 @XmlRootElement(name="tasks")
 public class TaskSetWrapper {

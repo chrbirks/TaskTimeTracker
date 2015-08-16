@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import main.java.ttt.task.Constants;
-import main.java.ttt.task.Settings;
+import main.java.ttt.task.SettingsManager;
 import main.java.ttt.task.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,13 +40,13 @@ public class StatisticsController {
      */
 	@FXML
 	private void initialize() {
-		projectTaskName = Settings.getProjectRelatedName();
+		projectTaskName = SettingsManager.getProjectRelatedName();
 		
-		otherProjectTaskId = Settings.getOtherProjectRelatedId();
-		otherProjectTaskName = Settings.getOtherProjectRelatedName();
+		otherProjectTaskId = SettingsManager.getOtherProjectRelatedId();
+		otherProjectTaskName = SettingsManager.getOtherProjectRelatedName();
 		
-		otherNonProjectTaskId = Settings.getOtherNonProjectRelatedId();
-		otherNonProjectTaskName = Settings.getOtherNonProjectRelatedName();
+		otherNonProjectTaskId = SettingsManager.getOtherNonProjectRelatedId();
+		otherNonProjectTaskName = SettingsManager.getOtherNonProjectRelatedName();
 		
 		categories.add(projectTaskName);
 		categories.add(otherProjectTaskName);

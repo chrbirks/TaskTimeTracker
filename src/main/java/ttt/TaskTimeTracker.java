@@ -10,11 +10,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import main.java.ttt.task.Constants;
-import main.java.ttt.task.Settings;
+import main.java.ttt.task.SettingsManager;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import main.java.ttt.view.AddTaskDialogController;
@@ -349,8 +352,8 @@ public class TaskTimeTracker extends Application {
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 	        
-	        SettingsOverviewController controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
+	        SettingsOverviewController settingsOverviewController = loader.getController();
+	        settingsOverviewController.setDialogStage(dialogStage);
 
 	        dialogStage.show();
 		} catch (IOException e) {
@@ -358,9 +361,61 @@ public class TaskTimeTracker extends Application {
 		}
 	}
 	
+//	/*
+//	 * Save settings to file
+//	 */
+//	public void saveSettingsToFile() {
+//		File file = new File(Constants.SETTINGS_FILE_LOCATION);
+//		try {
+//	        JAXBContext context = JAXBContext
+//	                .newInstance(Settings.class);
+//	        Marshaller m = context.createMarshaller();
+//	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//
+//	        // Marshalling and saving XML to the file.
+//	        m.marshal(settings, file);
+//
+//	    } catch (Exception e) { // catches ANY exception
+////	        Alert alert = new Alert(AlertType.ERROR);
+////	        alert.setTitle("Error");
+////	        alert.setHeaderText("Could not save data");
+////	        alert.setContentText("Could not save data to file:\n" + file.getPath());
+////
+////	        alert.showAndWait();
+//	    	LOGGER.error("Could not save settings to file: " + file.getPath(), e);
+//	    }
+//	}
+//	public void saveTaskDataToFile(File file) {
+//	    try {
+//	        JAXBContext context = JAXBContext
+//	                .newInstance(TaskSetWrapper.class);
+//	        Marshaller m = context.createMarshaller();
+//	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//
+//	        // Wrapping our task data.
+//	        TaskSetWrapper wrapper = new TaskSetWrapper();
+//	        wrapper.setTasks(taskSet);
+//
+//	        // Marshalling and saving XML to the file.
+//	        m.marshal(wrapper, file);
+//
+//	        // Save the file path to the registry.
+//	        setTaskFilePath(file);
+//	    } catch (Exception e) { // catches ANY exception
+////	        Alert alert = new Alert(AlertType.ERROR);
+////	        alert.setTitle("Error");
+////	        alert.setHeaderText("Could not save data");
+////	        alert.setContentText("Could not save data to file:\n" + file.getPath());
+////
+////	        alert.showAndWait();
+//	    	LOGGER.error("Could not save data to file: " + file.getPath(), e);
+//	    }
+//	}
+
+	
 	private List<File> getLogFiles() {
 		List<File> fileList = new ArrayList<File>();
-		File directory = new File(Settings.getLogDir());
+		File directory = new File(SettingsManager.getLogDir());
 		
 		// Get all the files from the directory
 		File[] allFiles = directory.listFiles(new FilenameFilter() {
