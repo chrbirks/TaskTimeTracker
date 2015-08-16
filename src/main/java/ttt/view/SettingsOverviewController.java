@@ -7,8 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.ttt.TaskTimeTracker;
-import main.java.ttt.task.SettingsManager;
+import main.java.ttt.SettingsManager;
 
 /**
  * @author chrbirks

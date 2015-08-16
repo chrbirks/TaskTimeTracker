@@ -1,9 +1,10 @@
-package main.java.ttt.task;
+package main.java.ttt;
 
 import java.io.File;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,27 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@XmlRootElement(namespace = "main.java.ttt.task")
+import main.java.ttt.task.Constants;
+
 public class SettingsManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SettingsManager.class);
 	
 	public static SettingsManager settingsManager = new SettingsManager();
-	
-	@XmlElement(name = "projectRelatedName")
-	private static String projectRelatedName = "MON";
-	@XmlElement(name = "otherProjectRelatedId")
-	private static String otherProjectRelatedId = "1";
-	@XmlElement(name = "otherProjectRelatedName")
-	private static String otherProjectRelatedName = "Projektrelateret";
-	@XmlElement(name = "otherNonProjectRelatedId")
-	private static String otherNonProjectRelatedId = "0";
-	@XmlElement(name = "otherNonProjectRelatedName")
-	private static String otherNonProjectRelatedName = "Ikke-projektrelateret";
-	
-	@XmlElement(name = "logDir")
-	private static String logDir = "./logs";
-	@XmlElement(name = "automaticLogging")
-	private static boolean automaticLogging = false;
+	public static Settings settings = new Settings();
 	
 	// Private constructor for singleton class
 	private SettingsManager() {
@@ -49,12 +36,12 @@ public class SettingsManager {
 		File file = new File(Constants.SETTINGS_FILE_LOCATION);
 		try {
 	        JAXBContext context = JAXBContext
-	                .newInstance(SettingsManager.class);
+	                .newInstance(Settings.class);
 	        Marshaller m = context.createMarshaller();
 	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 	        // Marshalling and saving XML to the file.
-	        m.marshal(this, file);
+	        m.marshal(settings, file);
 
 	    } catch (Exception e) { // catches ANY exception
 //	        Alert alert = new Alert(AlertType.ERROR);
@@ -70,14 +57,24 @@ public class SettingsManager {
 	/**
 	 * Retrieve settings from file
 	 */
-	public static void getSettingsFromFile() {
+	public void getSettingsFromFile() {
 		File file = new File(Constants.SETTINGS_FILE_LOCATION);
 		try {
 			JAXBContext context = JAXBContext
-					.newInstance(SettingsManager.class);
+					.newInstance(Settings.class);
 			Unmarshaller um = context.createUnmarshaller();
-			SettingsManager settings2 = (SettingsManager) um.unmarshal(file);
-			setProjectRelatedName(settings2.getProjectRelatedName());
+			Settings settingsFromFile = (Settings) um.unmarshal(file);
+
+			setProjectRelatedName(settingsFromFile.projectRelatedName);
+			setOtherProjectRelatedId(settingsFromFile.otherProjectRelatedId);
+			setOtherProjectRelatedName(settingsFromFile.otherProjectRelatedName);
+			setOtherNonProjectRelatedId(settingsFromFile.otherNonProjectRelatedId);
+			setOtherNonProjectRelatedName(settingsFromFile.otherNonProjectRelatedName);
+			setLogDir(settingsFromFile.logDir);
+			setAutomaticLogging(settingsFromFile.automaticLogging);
+			
+		} catch (UnmarshalException e) {
+			LOGGER.warn("Unable to open settings file. Using default values.", e);
 		} catch (Exception e) {
 			LOGGER.error("", e);
 		}
@@ -93,87 +90,86 @@ public class SettingsManager {
 	 * @return the projectRelatedName
 	 */
 	public static String getProjectRelatedName() {
-		return projectRelatedName;
+		return settings.projectRelatedName;
 	}
 	/**
 	 * @param projectRelatedName the projectRelatedName to set
 	 */
 	public static void setProjectRelatedName(String projectRelatedName) {
-		SettingsManager.projectRelatedName = projectRelatedName;
+		settings.projectRelatedName = projectRelatedName;
 	}
 	/**
 	 * @return the otherProjectRelatedId
 	 */
 	public static String getOtherProjectRelatedId() {
-		return otherProjectRelatedId;
+		return settings.otherProjectRelatedId;
 	}
 	/**
 	 * @param otherProjectRelatedId the otherProjectRelatedId to set
 	 */
 	public static void setOtherProjectRelatedId(String otherProjectRelatedId) {
-		SettingsManager.otherProjectRelatedId = otherProjectRelatedId;
+		settings.otherProjectRelatedId = otherProjectRelatedId;
 	}
 	/**
 	 * @return the otherProjectRelatedName
 	 */
 	public static String getOtherProjectRelatedName() {
-		return otherProjectRelatedName;
+		return settings.otherProjectRelatedName;
 	}
 	/**
 	 * @param otherProjectRelatedName the otherProjectRelatedName to set
 	 */
 	public static void setOtherProjectRelatedName(String otherProjectRelatedName) {
-		SettingsManager.otherProjectRelatedName = otherProjectRelatedName;
+		settings.otherProjectRelatedName = otherProjectRelatedName;
 	}
 	/**
 	 * @return the otherNonProjectRelatedId
 	 */
 	public static String getOtherNonProjectRelatedId() {
-		return otherNonProjectRelatedId;
+		return settings.otherNonProjectRelatedId;
 	}
 	/**
 	 * @param otherNonProjectRelatedId the otherNonProjectRelatedId to set
 	 */
 	public static void setOtherNonProjectRelatedId(String otherNonProjectRelatedId) {
-		SettingsManager.otherNonProjectRelatedId = otherNonProjectRelatedId;
+		settings.otherNonProjectRelatedId = otherNonProjectRelatedId;
 	}
 	/**
 	 * @return the otherNonProjectRelatedName
 	 */
 	public static String getOtherNonProjectRelatedName() {
-		return otherNonProjectRelatedName;
+		return settings.otherNonProjectRelatedName;
 	}
 	/**
 	 * @param otherNonProjectRelatedName the otherNonProjectRelatedName to set
 	 */
 	public static void setOtherNonProjectRelatedName(String otherNonProjectRelatedName) {
-		SettingsManager.otherNonProjectRelatedName = otherNonProjectRelatedName;
+		settings.otherNonProjectRelatedName = otherNonProjectRelatedName;
 	}
 	/**
 	 * @return the logDir
 	 */
 	public static String getLogDir() {
-		return logDir;
+		return settings.logDir;
 	}
 	/**
 	 * @param logDir the logDir to set
 	 */
 	public static void setLogDir(String logDir) {
-		SettingsManager.logDir = logDir;
+		settings.logDir = logDir;
 	}
 	/**
 	 * @return the automaticLogging
 	 */
 	public static boolean isAutomaticLogging() {
-		return automaticLogging;
+		return settings.automaticLogging;
 	}
 	/**
 	 * @param automaticLogging the automaticLogging to set
 	 */
 	public static void setAutomaticLogging(boolean automaticLogging) {
-		SettingsManager.automaticLogging = automaticLogging;
-	}
-	
+		settings.automaticLogging = automaticLogging;
+	}	
 	
 	
 }

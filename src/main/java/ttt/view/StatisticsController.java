@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import main.java.ttt.SettingsManager;
 import main.java.ttt.task.Constants;
-import main.java.ttt.task.SettingsManager;
 import main.java.ttt.task.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
