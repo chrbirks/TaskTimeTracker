@@ -69,7 +69,7 @@ public class SettingsManager {
 			setOtherNonProjectRelatedId(settingsFromFile.otherNonProjectRelatedId);
 			setOtherNonProjectRelatedName(settingsFromFile.otherNonProjectRelatedName);
 			setLogDir(settingsFromFile.logDir);
-			setAutomaticLogging(settingsFromFile.automaticLogging);
+//			setAutomaticLogging(settingsFromFile.automaticLogging);
 			
 		} catch (UnmarshalException e) {
 			LOGGER.warn("Unable to open settings file. Using default values.", e);
@@ -77,12 +77,6 @@ public class SettingsManager {
 			LOGGER.error("", e);
 		}
 	}
-//	Unmarshaller um = context.createUnmarshaller();
-//    Bookstore bookstore2 = (Bookstore) um.unmarshal(new FileReader(BOOKSTORE_XML));
-//    ArrayList<Book> list = bookstore2.getBooksList();
-//    for (Book book : list) {
-//      System.out.println("Book: " + book.getName() + " from "
-//          + book.getAuthor());
 	
 	/**
 	 * @return the projectRelatedName

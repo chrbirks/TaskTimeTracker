@@ -28,10 +28,9 @@ public class TaskLogger implements Runnable {
 		sb.append(LocalDate.now().toString());
 		sb.append(".xml"); // TODO: Get file type from settings
 		filepath = sb.toString();
-		LOGGER.debug(filepath);
 		
 		if (SettingsManager.isAutomaticLogging()) {
-			LOGGER.debug("Automatic logging to file");
+			LOGGER.debug("Automatic logging to file: " + filepath);
 			taskManager.saveTaskDataToFile(new File(filepath));
 		}
 	}

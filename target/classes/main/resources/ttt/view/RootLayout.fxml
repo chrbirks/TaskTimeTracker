@@ -21,6 +21,10 @@
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Settings">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSettings" text="Settings" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Help" />
         </menus>
       </MenuBar>

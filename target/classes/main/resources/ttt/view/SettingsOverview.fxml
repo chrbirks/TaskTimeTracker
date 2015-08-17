@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.ttt.view.SettingsOverviewController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="200.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="200.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Project-related ID:" GridPane.rowIndex="1" />
+                  <Label text="Non project-related ID:" GridPane.rowIndex="3" />
+                  <Label text="Project name:" GridPane.rowIndex="5" />
+                  <TextField fx:id="otherProjectRelatedIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="otherNonProjectRelatedIdField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="projectRelatedNameField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button mnemonicParsing="false" onAction="#handleOk" text="OK" GridPane.rowIndex="12" />
+                  <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                  <Label text="Statistics settings">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="Non project-related name:" GridPane.rowIndex="4" />
+                  <TextField fx:id="otherProjectRelatedNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="otherNonProjectRelatedTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Project-related name:" GridPane.rowIndex="2" />
+                  <Label text="Log settings" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="Logfile directory" GridPane.rowIndex="7" />
+                  <TextField fx:id="logDirField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <CheckBox fx:id="automaticLoggingBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Automatic logging" GridPane.rowIndex="8" />
+               </children>
+            </GridPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
