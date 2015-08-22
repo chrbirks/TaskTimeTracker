@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.ttt.logger.TaskLogger;
 import main.java.ttt.logger.TaskLoggerManager;
 import main.java.ttt.task.Constants;
 import main.java.ttt.task.Task;
@@ -123,11 +124,13 @@ public class TaskTimeTracker extends Application {
 			LOGGER.error("", e);
 		}
 
-//		// Try to load last opened person file.
+		// Try to load last opened task file.
 //		File file = taskManager.getTaskFilePath();
-//		if (file != null && file.exists() && !file.isDirectory()) {
-//			taskManager.loadTaskDataFromFile(file);
-//		}
+		File file = new File(TaskLogger.getDailyLogfileName());
+		if (file != null && file.exists() && !file.isDirectory()) {
+			LOGGER.debug("Continuing on logfile for today: " + file);
+			taskManager.loadTaskDataFromFile(file);
+		}
 	}
 
 	/**
@@ -553,10 +556,10 @@ public class TaskTimeTracker extends Application {
 		
 		
 
-		TaskManager taskManager = TaskManager.getInstance();
-		taskManager.addTask("0", "Andet", LocalDateTime.now());
-		taskManager.addTask("1", "Andet", LocalDateTime.now());
-		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
+//		TaskManager taskManager = TaskManager.getInstance();
+//		taskManager.addTask("0", "Andet", LocalDateTime.now());
+//		taskManager.addTask("1", "Andet", LocalDateTime.now());
+//		taskManager.addTask("MON-100", "Projekt", LocalDateTime.now());
 
 		launch(args);
 	}

@@ -21,18 +21,26 @@ public class TaskLogger implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO: Create File with name of the date
-		StringBuilder sb = new StringBuilder();
-		sb.append(SettingsManager.getLogDir());
-		sb.append("/");
-		sb.append(LocalDate.now().toString());
-		sb.append(".xml"); // TODO: Get file type from settings
-		filepath = sb.toString();
+		filepath = getDailyLogfileName();
 		
 		if (SettingsManager.isAutomaticLogging()) {
 			LOGGER.debug("Automatic logging to file: " + filepath);
 			taskManager.saveTaskDataToFile(new File(filepath));
 		}
+	}
+	
+	/**
+	 * Return name of logfile with current date.
+	 * For example: "./logs/2015-08-22.xml"
+	 * @return String
+	 */
+	public static final String getDailyLogfileName() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(SettingsManager.getLogDir());
+		sb.append("/");
+		sb.append(LocalDate.now().toString());
+		sb.append(".xml"); // TODO: Get file type from settings
+		return sb.toString();
 	}
 
 }
