@@ -2,7 +2,6 @@ package main.java.ttt.auxil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 
 import org.slf4j.Logger;
@@ -37,6 +36,8 @@ public final class DoubleRound {
 //	    LOGGER.debug("5");
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+//	    LOGGER.debug("bd: " + bd.toString());
+//	    LOGGER.debug("bdDoubleValue: " + bd.doubleValue());
 	    
 //	    return bd.doubleValue();
 //	    return ans;

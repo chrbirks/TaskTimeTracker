@@ -53,7 +53,7 @@ public final class TimeKeeper implements Runnable {
 		taskStartTime = task.getTaskTime();
 		elapsedSeconds = taskStartTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 		elapsedMinutes = taskStartTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
-		elapsedHours = DoubleRound.doubleRound(elapsedMinutes/60.0, 2);
+		elapsedHours = DoubleRound.doubleRound(elapsedMinutes/60.0f, 2);
 		LOGGER.debug("Elapsed time (h:m:s): " + elapsedHours + ":" + elapsedMinutes + ":" + elapsedSeconds);
 		
 		// Update internal times in task
