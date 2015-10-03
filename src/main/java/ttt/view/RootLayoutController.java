@@ -69,20 +69,6 @@ public class RootLayoutController {
 	}
 
 	/**
-	 * Saves the file to the task file that is currently open. If there is no
-	 * open file, the "save as" dialog is shown.
-	 */
-	@FXML
-	private void handleSave() {
-		File taskFile = taskManager.getTaskFilePath();
-		if (taskFile != null) {
-			taskManager.saveTaskDataToFile(taskFile);
-		} else {
-			handleSaveAs();
-		}
-	}
-
-	/**
 	 * Opens a FileChooser to let the user select a file to save to.
 	 */
 	@FXML
