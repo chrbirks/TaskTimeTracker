@@ -1,13 +1,13 @@
 package main.java.ttt.task;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import main.java.ttt.auxil.DoubleRound;
-import main.java.ttt.task.Task;
 import main.java.ttt.view.TaskOverviewController;
 
 public final class TimeKeeper implements Runnable {
@@ -19,10 +19,10 @@ public final class TimeKeeper implements Runnable {
 	private TaskOverviewController taskOverviewController;
 	
 	private LocalDateTime taskStartTime;
-	private double elapsedHours;
+	private String elapsedHours;
 	private long elapsedMinutes;
 	private long elapsedSeconds;
-	private double origHours;
+	private String origHours;
 	private long origMinutes;
 		
 	// Constructor
@@ -53,13 +53,21 @@ public final class TimeKeeper implements Runnable {
 		taskStartTime = task.getTaskTime();
 		elapsedSeconds = taskStartTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 		elapsedMinutes = taskStartTime.until(LocalDateTime.now(), ChronoUnit.MINUTES);
-		elapsedHours = DoubleRound.doubleRound(elapsedMinutes/60.0f, 2);
+//		elapsedHours = DoubleRound.doubleRound(elapsedMinutes/60.0f, 2);
+		BigDecimal hours = new BigDecimal(elapsedMinutes/60.0).setScale(2, RoundingMode.HALF_EVEN);
+		elapsedHours = hours.toString();
 		LOGGER.debug("Elapsed time (h:m:s): " + elapsedHours + ":" + elapsedMinutes + ":" + elapsedSeconds);
 		
 		// Update internal times in task
 		task.setElapsedMinutes(origMinutes + elapsedMinutes);
-		task.setElapsedHours(origHours + elapsedHours);
-		LOGGER.debug("Total elapsed time (h:m): " + task.getElapsedHours() + ":" + task.getElapsedMinutes());
+		BigDecimal totalHours = new BigDecimal(origHours)
+				.add(new BigDecimal(elapsedHours))
+				.setScale(2, RoundingMode.HALF_EVEN);
+//		LOGGER.debug("***** {}", origHours);
+//		LOGGER.debug("***** {}", elapsedHours);
+//		LOGGER.debug("***** {}", totalHours.toString());
+		task.setElapsedHours(totalHours);
+		LOGGER.debug("Total elapsed time (h:m): " + elapsedHours.toString() + ":" + task.getElapsedMinutes());
 	}
 
 	private void resetTime(Task task) {

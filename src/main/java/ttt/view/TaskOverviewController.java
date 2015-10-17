@@ -8,13 +8,13 @@ import java.util.concurrent.ScheduledFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import main.java.ttt.TaskTimeTracker;
 import main.java.ttt.task.Task;
 import main.java.ttt.task.TaskManager;
 import main.java.ttt.task.TimeKeeper;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 public class TaskOverviewController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TaskOverviewController.class);
@@ -32,7 +32,7 @@ public class TaskOverviewController {
 	private TableColumn<Task, Long> minutesColumn;
 
 	@FXML
-	private TableColumn<Task, Double> hoursColumn;
+	private TableColumn<Task, String> hoursColumn;
 
 	// Reference to main application
 	private TaskTimeTracker taskTimeTracker;
@@ -62,10 +62,16 @@ public class TaskOverviewController {
 				.getTaskNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.getTaskIdProperty());
+//		idColumn.setCellValueFactory(
+//				new Callback<CellDataFeatures<Task, String>, ObservableValue<String>>() {
+//			public ObservableValue<String> call(CellDataFeatures<Task, String> t) {
+//				return t.getValue().getTaskIdProperty();
+//			}
+//		});
 		minutesColumn.setCellValueFactory(cellData -> cellData.getValue()
 				.getElapsedMinutesProperty().asObject());
-		hoursColumn.setCellValueFactory(cellData -> cellData.getValue()
-				.getElapsedHoursProperty().asObject());
+		hoursColumn.setCellValueFactory(cellData -> cellData.getValue().
+				getElapsedHoursProperty());
 
 		// Listen for selection changes and update time when task is changed
 		taskTable

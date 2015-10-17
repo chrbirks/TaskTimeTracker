@@ -10,8 +10,11 @@ import main.java.ttt.task.TaskManager;
 
 public class TaskLoggerManager {
 	
+	@SuppressWarnings("unused")
 	private TaskManager taskManager;
+	@SuppressWarnings("unused")
 	private ScheduledExecutorService scheduler;
+	@SuppressWarnings("unused")
 	private ScheduledFuture<?> scheduledFuture;
 	
 	private TaskLogger taskLogger;

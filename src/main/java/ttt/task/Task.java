@@ -3,19 +3,18 @@
  */
 package main.java.ttt.task;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import main.java.ttt.auxil.LocalDateTimeAdapter;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import main.java.ttt.auxil.LocalDateTimeAdapter;
 
 /**
  * @author chrbirks
@@ -27,7 +26,7 @@ public class Task {
 	private StringProperty taskName;
 	private ObjectProperty<LocalDateTime> time;
 	private LongProperty elapsedMinutes;
-	private DoubleProperty elapsedHours;
+	private StringProperty elapsedHours;
 	
 	// JABX unmarshaller needs default constructor?
 	@SuppressWarnings("unused")
@@ -36,7 +35,7 @@ public class Task {
 		this.taskName = new SimpleStringProperty("x");
 		this.time = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.now());
 		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
-		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
+		this.elapsedHours = new SimpleStringProperty(this, "elapsedHours", "0.00");
 	}
 	
 	public Task(String taskId, String taskName, LocalDateTime time) {
@@ -44,7 +43,7 @@ public class Task {
 		this.taskName = new SimpleStringProperty(taskName);
 		this.time = new SimpleObjectProperty<LocalDateTime>(time);
 		this.elapsedMinutes = new SimpleLongProperty(this, "elapsedMinutes", 0);
-		this.elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", 0);
+		this.elapsedHours = new SimpleStringProperty(this, "elapsedHours", "0.00");
 	}
 	
 	public void setTaskId(String id) {
@@ -80,15 +79,15 @@ public class Task {
 		return time.get();
 	}
 	
-	public void setElapsedHours(double hours) {
-		elapsedHours = new SimpleDoubleProperty(this, "elapsedHours", hours);
+	public void setElapsedHours(BigDecimal hours) {
+		elapsedHours = new SimpleStringProperty(this, "elapsedHours", hours.toString());
 	}
 	
-	public double getElapsedHours() {
+	public String getElapsedHours() {
 		return elapsedHours.get();
 	}
 	
-	public DoubleProperty getElapsedHoursProperty() {
+	public StringProperty getElapsedHoursProperty() {
 		return this.elapsedHours;
 	}
 	

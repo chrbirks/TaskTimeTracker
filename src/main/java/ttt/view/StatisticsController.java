@@ -1,5 +1,7 @@
 package main.java.ttt.view;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +67,8 @@ public class StatisticsController {
 		
 		// Loop through all tasks and store the time in the appropriate category
 		for (Task t : tasks) {
-			double time = t.getElapsedHours();
+			BigDecimal tmpTime = new BigDecimal(t.getElapsedHours()).setScale(2, RoundingMode.HALF_EVEN);
+			double time = tmpTime.doubleValue();
 			if (t.getTaskId().equals(otherProjectTaskId)) {
 				if (categoryMap.get(otherProjectTaskName) != null) {
 					old_time = categoryMap.get(otherProjectTaskName);

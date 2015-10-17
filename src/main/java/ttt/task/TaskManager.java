@@ -1,6 +1,8 @@
 package main.java.ttt.task;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
@@ -13,11 +15,10 @@ import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import main.java.ttt.TaskTimeTracker;
-import main.java.ttt.auxil.DoubleRound;
-import main.java.ttt.model.TaskSetWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import main.java.ttt.TaskTimeTracker;
+import main.java.ttt.model.TaskSetWrapper;
 
 public class TaskManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TaskManager.class);
@@ -99,7 +100,8 @@ public class TaskManager {
 		Iterator<Task> i = taskSet.iterator();
 		while (i.hasNext()) {
 			Task task = i.next();
-			task.setElapsedHours(0);
+			BigDecimal newHours = new BigDecimal(0).setScale(2, RoundingMode.HALF_EVEN);
+			task.setElapsedHours(newHours);
 			task.setElapsedMinutes(0);
 		}
 	}
@@ -115,7 +117,8 @@ public class TaskManager {
 			if (task.equals(refTask)) {
 				LOGGER.debug("Editing time for task: " + task.toString());
 				task.setElapsedMinutes(minutes);
-				task.setElapsedHours(DoubleRound.doubleRound(minutes/60.0, 2));
+				BigDecimal hours = new BigDecimal(minutes/60.0).setScale(2, RoundingMode.HALF_EVEN);
+				task.setElapsedHours(hours);
 				LOGGER.debug("Task is now: " + task.toString());
 				return true;
 			}
